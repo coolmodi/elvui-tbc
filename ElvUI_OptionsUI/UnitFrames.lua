@@ -1754,6 +1754,15 @@ local function GetOptionsTable_HealPrediction(updateFunc, groupName, numGroup, s
 				func = function() ACD:SelectGroup('ElvUI', 'unitframe', 'generalOptionsGroup', 'allColorsGroup', 'healPrediction') end,
 				disabled = function() return not E.UnitFrames.Initialized end,
 			},
+			predictionTime = {
+				order = 4,
+				type = "range",
+				name = L["Prediction timeframe."],
+				desc = L["How many seconds to look ahead for incoming heals."],
+				min = 2,
+				max = 20,
+				step = 1
+			},
 			anchorPoint = {
 				order = 5,
 				type = 'select',

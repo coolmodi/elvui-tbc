@@ -65,33 +65,81 @@ local function Update(self, event, unit)
 		element:PreUpdate(unit)
 	end
 
-	local guid = UnitGUID(unit)
+	local unitGUID = UnitGUID(unit)
+	local predictionTime = GetTime() + element.predictionTime
+	local FLAG_DIRECT_HEALS = HealComm.DIRECT_HEALS
 
-	local allIncomingHeal = HealComm:GetHealAmount(guid, element.healType) or 0
-	local myIncomingHeal = (HealComm:GetHealAmount(guid, element.healType, nil, myGUID) or 0) * (HealComm:GetHealModifier(myGUID) or 1)
+	local allDirectHeal = HealComm:GetHealAmount(unitGUID, FLAG_DIRECT_HEALS) or 0
+	local beforeMyHeal = 0
+	local myDirectHeal = (HealComm:GetHealAmount(unitGUID, FLAG_DIRECT_HEALS, nil, myGUID) or 0)
+	local afterMyHeal = 0
 	local health, maxHealth = UnitHealth(unit), UnitHealthMax(unit)
-	local otherIncomingHeal = 0
+	local healMod = HealComm:GetHealModifier(unitGUID) or 1
+	local maxHealShowm = maxHealth * element.maxOverflow - health
 
-	if(health + allIncomingHeal > maxHealth * element.maxOverflow) then
-		allIncomingHeal = maxHealth * element.maxOverflow - health
+	if maxHealShowm > 0 then
+		if myDirectHeal > 0 then
+			-- We also have heal on the target, check if some direct heals land before ours.
+			local _, healFrom, healAmount = HealComm:GetNextHealAmount(unitGUID, FLAG_DIRECT_HEALS, predictionTime)
+			if healFrom and healFrom ~= myGUID then
+				beforeMyHeal = healAmount
+				-- Without much overflow we can probably stop here already very often.
+				if beforeMyHeal < maxHealShowm then
+					_, healFrom, healAmount = HealComm:GetNextHealAmount(unitGUID, FLAG_DIRECT_HEALS, predictionTime, healFrom)
+					if healFrom and healFrom ~= myGUID then
+						beforeMyHeal = beforeMyHeal + healAmount
+					end
+				end
+			end
+			-- Everything else (probably) comes after our heal.
+			afterMyHeal = allDirectHeal - beforeMyHeal - myDirectHeal
+		else
+			afterMyHeal = allDirectHeal;
+		end
+
+		-- Append over time heal if active and direct heal isn't already above the overflow limit.
+		if bit.band(element.healType, HealComm.HOT_HEALS) > 0 and allDirectHeal < maxHealShowm then
+			afterMyHeal = afterMyHeal + (HealComm:GetHealAmount(unitGUID, bit.bor(HealComm.HOT_HEALS, HealComm.CHANNEL_HEALS), predictionTime) or 0)
+		end
 	end
 
-	if(allIncomingHeal < myIncomingHeal) then
-		myIncomingHeal = allIncomingHeal
+	beforeMyHeal = beforeMyHeal * healMod;
+	myDirectHeal = myDirectHeal * healMod;
+	afterMyHeal = afterMyHeal * healMod;
+
+	if beforeMyHeal > maxHealShowm then
+		beforeMyHeal = maxHealShowm
+		myDirectHeal = 0
+		afterMyHeal = 0
 	else
-		otherIncomingHeal = HealComm:GetOthersHealAmount(guid, HealComm.ALL_HEALS) or 0
+		maxHealShowm = maxHealShowm - beforeMyHeal
+		if myDirectHeal > maxHealShowm then
+			myDirectHeal = maxHealShowm
+			afterMyHeal = 0
+		else
+			maxHealShowm = maxHealShowm - myDirectHeal
+			if afterMyHeal > maxHealShowm then
+				afterMyHeal = maxHealShowm
+			end
+		end
+	end
+
+	if(element.beforeBar) then
+		element.beforeBar:SetMinMaxValues(0, maxHealth)
+		element.beforeBar:SetValue(beforeMyHeal)
+		element.beforeBar:Show()
 	end
 
 	if(element.myBar) then
 		element.myBar:SetMinMaxValues(0, maxHealth)
-		element.myBar:SetValue(myIncomingHeal)
+		element.myBar:SetValue(myDirectHeal)
 		element.myBar:Show()
 	end
 
-	if(element.otherBar) then
-		element.otherBar:SetMinMaxValues(0, maxHealth)
-		element.otherBar:SetValue(otherIncomingHeal)
-		element.otherBar:Show()
+	if(element.afterBar) then
+		element.afterBar:SetMinMaxValues(0, maxHealth)
+		element.afterBar:SetValue(afterMyHeal)
+		element.afterBar:Show()
 	end
 
 	--[[ Callback: HealthPrediction:PostUpdate(unit, myIncomingHeal, otherIncomingHeal)
@@ -103,7 +151,7 @@ local function Update(self, event, unit)
 	* otherIncomingHeal - the amount of incoming healing done by others (number)
 	--]]
 	if(element.PostUpdate) then
-		return element:PostUpdate(unit, myIncomingHeal, otherIncomingHeal)
+		return element:PostUpdate(unit, myDirectHeal, beforeMyHeal + afterMyHeal)
 	end
 end
 
@@ -161,15 +209,21 @@ local function Enable(self)
 			element.maxOverflow = 1.05
 		end
 
-		if(element.myBar) then
-			if(element.myBar:IsObjectType('StatusBar') and not element.myBar:GetStatusBarTexture()) then
-				element.myBar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
+		if(element.beforeBar) then
+			if(element.beforeBar:IsObjectType('StatusBar') and not element.beforeBar:GetStatusBarTexture()) then
+				element.beforeBar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 			end
 		end
 
-		if(element.otherBar) then
-			if(element.otherBar:IsObjectType('StatusBar') and not element.otherBar:GetStatusBarTexture()) then
-				element.otherBar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
+		if(element.afterBar) then
+			if(element.afterBar:IsObjectType('StatusBar') and not element.afterBar:GetStatusBarTexture()) then
+				element.afterBar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
+			end
+		end
+
+		if(element.myBar) then
+			if(element.myBar:IsObjectType('StatusBar') and not element.myBar:GetStatusBarTexture()) then
+				element.myBar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
 			end
 		end
 
@@ -180,12 +234,16 @@ end
 local function Disable(self)
 	local element = self.HealthPrediction
 	if(element) then
-		if(element.myBar) then
-			element.myBar:Hide()
+		if(element.beforeBar) then
+			element.beforeBar:Hide()
 		end
 
-		if(element.otherBar) then
-			element.otherBar:Hide()
+		if(element.afterBar) then
+			element.afterBar:Hide()
+		end
+
+		if(element.myBar) then
+			element.myBar:Hide()
 		end
 
 		HealComm.UnregisterCallback(element, 'HealComm_HealStarted')

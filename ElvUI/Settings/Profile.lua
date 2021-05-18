@@ -271,6 +271,7 @@ local NP_Auras = {
 local NP_Health = {
 	enable = true,
 	healPrediction = true,
+	predictionTime = 3,
 	height = 10,
 	useClassColor = true,
 	text = {
@@ -1085,7 +1086,8 @@ local UF_HealthPrediction = {
 	healType = 'ALL_HEALS',
 	absorbStyle = 'OVERFLOW',
 	anchorPoint = 'BOTTOM',
-	height = -1
+	height = -1,
+	predictionTime = 3,
 }
 
 local UF_InfoPanel = {
