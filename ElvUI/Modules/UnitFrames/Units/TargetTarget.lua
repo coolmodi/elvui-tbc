@@ -26,6 +26,7 @@ function UF:Construct_TargetTargetFrame(frame)
 	frame.Fader = UF:Construct_Fader()
 	frame.Cutaway = UF:Construct_Cutaway(frame)
 	frame.customTexts = {}
+	frame.HealthPrediction = self:Construct_HealComm(frame)
 
 	frame:Point('BOTTOM', E.UIParent, 'BOTTOM', 342, 100) --Set to default position
 	E:CreateMover(frame, frame:GetName()..'Mover', L["TargetTarget Frame"], nil, nil, nil, 'ALL,SOLO', nil, 'unitframe,individualUnits,targettarget,generalGroup')
@@ -82,6 +83,7 @@ function UF:Update_TargetTargetFrame(frame, db)
 	UF:Configure_RaidIcon(frame)
 	UF:Configure_Cutaway(frame)
 	UF:Configure_CustomTexts(frame)
+	UF:Configure_HealComm(frame)
 
 	E:SetMoverSnapOffset(frame:GetName()..'Mover', -(12 + self.db.units.player.castbar.height))
 	frame:UpdateAllElements('ElvUI_UpdateAllElements')

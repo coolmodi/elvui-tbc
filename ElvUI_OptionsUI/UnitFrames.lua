@@ -4372,6 +4372,7 @@ E.Options.args.unitframe.args.individualUnits.args.targettarget = {
 		cutaway = GetOptionsTable_Cutaway(UF.CreateAndUpdateUF, 'targettarget'),
 		debuffs = GetOptionsTable_Auras('debuffs', UF.CreateAndUpdateUF, 'targettarget'),
 		fader = GetOptionsTable_Fader(UF.CreateAndUpdateUF, 'targettarget'),
+		healPredction = GetOptionsTable_HealPrediction(UF.CreateAndUpdateUF, 'targettarget'),
 		health = GetOptionsTable_Health(false, UF.CreateAndUpdateUF, 'targettarget'),
 		infoPanel = GetOptionsTable_InformationPanel(UF.CreateAndUpdateUF, 'targettarget'),
 		name = GetOptionsTable_Name(UF.CreateAndUpdateUF, 'targettarget'),

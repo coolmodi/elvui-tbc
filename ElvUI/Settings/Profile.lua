@@ -1529,6 +1529,7 @@ P.unitframe = {
 			power = CopyTable(UF_Power),
 			raidicon = CopyTable(UF_RaidIcon),
 			strataAndLevel = CopyTable(UF_StrataAndLevel),
+			healPrediction = CopyTable(UF_HealthPrediction),
 		},
 		focus = {
 			enable = true,
