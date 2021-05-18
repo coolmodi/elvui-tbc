@@ -675,12 +675,40 @@ local function getTagFunc(tagstr)
 	return func
 end
 
+local HealComm = LibStub("LibHealComm-4.0")
+local HealComm_EVENTS = {
+    HealComm_HealStarted = true,
+    HealComm_HealUpdated = true,
+    HealComm_HealStopped = true,
+    HealComm_ModifierChanged = true,
+    HealComm_GUIDDisappeared = true
+}
+local function HealCommCallback(event, ...)
+	local strings = events[event]
+	if(strings) then
+		local unitGUID
+		for i = 1, select('#', ...) do
+			unitGUID = select(i, ...)
+			for _, fs in next, strings do
+				if(fs:IsVisible() and UnitGUID(fs.parent.unit) == unitGUID) then
+					fs:UpdateTag()
+				end
+			end
+		end
+	end
+end
+
 local function registerEvent(fontstr, event)
 	if(not events[event]) then events[event] = {} end
 
-	local isOK = xpcall(eventFrame.RegisterEvent, eventFrame, event)
-	if(isOK) then
+	if HealComm_EVENTS[event] then
+		HealComm.RegisterCallback(eventFrame, event, HealCommCallback)
 		tinsert(events[event], fontstr)
+	else
+		local isOK = xpcall(eventFrame.RegisterEvent, eventFrame, event)
+		if(isOK) then
+			tinsert(events[event], fontstr)
+		end
 	end
 end
 
@@ -703,7 +731,11 @@ local function unregisterEvents(fontstr)
 		while tagfsstr do
 			if(tagfsstr == fontstr) then
 				if(#data == 1) then
-					eventFrame:UnregisterEvent(event)
+					if HealComm_EVENTS[event] then
+						HealComm.UnregisterCallback(eventFrame, event)
+					else
+						eventFrame:UnregisterEvent(event)
+					end
 				end
 
 				tremove(data, index)

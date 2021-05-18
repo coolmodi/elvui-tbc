@@ -20,3 +20,5 @@ Settings\Load_Settings.xml
 Core\Load_Core.xml
 Layout\Load_Layout.xml
 Modules\Load_Modules.xml
+
+Plugins\HealCommTags.lua
