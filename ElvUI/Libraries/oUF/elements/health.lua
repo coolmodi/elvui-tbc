@@ -313,6 +313,14 @@ local function SetHealthUpdateMethod(self, state, force)
 end
 -- end block
 
+local function SetCharmedColor(self)
+	if self.useCharmedColor then
+		self:RegisterEvent("PLAYER_FLAGS_CHANGED", ColorPath)
+	else
+		self:UnregisterEvent("PLAYER_FLAGS_CHANGED", ColorPath)
+	end
+end
+
 local function Enable(self, unit)
 	local element = self.Health
 	if(element) then
@@ -328,6 +336,9 @@ local function Enable(self, unit)
 		self.SetHealthUpdateMethod = SetHealthUpdateMethod
 		SetHealthUpdateMethod(self, self.effectiveHealth, true)
 		-- end block
+
+		self.SetCharmedColor = SetCharmedColor
+		SetCharmedColor(self)
 
 		if(element.colorDisconnected) then
 			self:RegisterEvent('UNIT_CONNECTION', ColorPath)

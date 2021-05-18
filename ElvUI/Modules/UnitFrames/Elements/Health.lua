@@ -107,6 +107,10 @@ function UF:Configure_HealthBar(frame)
 		end
 	end
 
+	if db.health then
+		health.useCharmedColor = db.health.colorCharmedUnits
+	end
+
 	--Position
 	health:ClearAllPoints()
 	health.WIDTH = db.width
@@ -205,6 +209,7 @@ function UF:Configure_HealthBar(frame)
 	if frame:IsElementEnabled('Health') then
 		frame:SetHealthUpdateMethod(E.global.unitframe.effectiveHealth)
 		frame:SetHealthUpdateSpeed(E.global.unitframe.effectiveHealthSpeed)
+		frame:SetCharmedColor()
 		frame.Health:ForceUpdate()
 	end
 end
@@ -229,7 +234,9 @@ function UF:PostUpdateHealthColor(unit, r, g, b)
 
 	local newr, newg, newb -- fallback for bg if custom settings arent used
 	if not b then r, g, b = colors.health.r, colors.health.g, colors.health.b end
-	if (((colors.healthclass and colors.colorhealthbyvalue) or (colors.colorhealthbyvalue and parent.isForced)) and not UnitIsTapDenied(unit)) then
+	if self.useCharmedColor and UnitIsCharmed(unit) then
+		self:SetStatusBarColor(colors.charmed.r, colors.charmed.g, colors.charmed.b)
+	elseif (((colors.healthclass and colors.colorhealthbyvalue) or (colors.colorhealthbyvalue and parent.isForced)) and not UnitIsTapDenied(unit)) then
 		newr, newg, newb = ElvUF:ColorGradient(self.cur, self.max, 1, 0, 0, 1, 1, 0, r, g, b)
 		self:SetStatusBarColor(newr, newg, newb)
 	end

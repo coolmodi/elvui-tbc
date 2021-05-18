@@ -1641,8 +1641,14 @@ local function GetOptionsTable_Health(isGroupFrame, updateFunc, groupName, numUn
 				get = function(info) return E.db.unitframe.units[groupName][info[#info]] end,
 				set = function(info, value) E.db.unitframe.units[groupName][info[#info]] = value; updateFunc(UF, groupName, numUnits) end,
 			},
-			configureButton = {
+			colorCharmedUnits = {
 				order = 5,
+				type = 'toggle',
+				name = L["Color Charmed"],
+				desc = L["Color if unit is mind controlled."],
+			},
+			configureButton = {
+				order = 6,
 				name = L["Coloring"],
 				desc = L["This opens the UnitFrames Color settings. These settings affect all unitframes."],
 				type = 'execute',
@@ -3319,6 +3325,12 @@ E.Options.args.unitframe = {
 									name = L["Custom Dead Backdrop"],
 									desc = L["Use this backdrop color for units that are dead or ghosts."],
 									customWidth = 250,
+								},
+								charmed = {
+									order = 25,
+									type = "color",
+									name = L["Charmed"],
+									desc = L["Color for mindcontrolled units."],
 								},
 							},
 						},
