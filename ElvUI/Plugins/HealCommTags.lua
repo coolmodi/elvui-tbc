@@ -13,7 +13,7 @@ local TAG_HEALPREDICTION_NOSTATUS = "hchealth:nostatus";
 local TAG_HEALPREDICTION_NAME_NOSTATUS = "hchealth:name-nostatus";
 
 local HCBitflag = HealComm.ALL_HEALS;
-local healTimeframe = 2;
+local healTimeframe = 3;
 
 ---------------------------------
 -- Add tags
