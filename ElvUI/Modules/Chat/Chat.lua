@@ -202,9 +202,10 @@ do --this can save some main file locals
 		["Blazii-MirageRaceway"]   = ElvBlue, -- Priest
 		-- Luckyone
 		["Luckyone-Shazzrah"]    = ElvGreen, -- Hunter
-		["Luckydruid-Shazzrah"]  = ElvGreen, -- Druid
 		["Luckyfear-Shazzrah"]   = ElvGreen, -- Warlock
-		["Luckyp-Shazzrah"]      = ElvGreen, -- Priest
+		["Luckydruid-Shazzrah"]  = ElvGreen, -- Druid
+		["Luckypriest-Shazzrah"] = ElvGreen, -- Priest
+		["Luckyshaman-Shazzrah"] = ElvGreen, -- Shaman
 	}
 end
 

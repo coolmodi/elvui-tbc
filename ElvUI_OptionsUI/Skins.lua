@@ -26,6 +26,7 @@ E.Options.args.skins.args.blizzard.sortByValue = true
 E.Options.args.skins.args.blizzard.values = {
 	addonManager = L["AddOn Manager"],
 	arena = L["Arena"],
+	arenaRegistrar = L["Arena Registrar"],
 	auctionhouse = L["AUCTIONS"],
 	bags = L["Bags"],
 	battlefield = L["Battlefield"],

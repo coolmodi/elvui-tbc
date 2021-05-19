@@ -9,7 +9,6 @@ local random = random
 local CreateFrame = CreateFrame
 local UnitPowerType = UnitPowerType
 local hooksecurefunc = hooksecurefunc
-local GetUnitPowerBarInfo = GetUnitPowerBarInfo
 local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 
 function UF:Construct_PowerBar(frame, bg, text, textPos)
@@ -33,7 +32,6 @@ function UF:Construct_PowerBar(frame, bg, text, textPos)
 
 	power.PostUpdate = self.PostUpdatePower
 	power.PostUpdateColor = self.PostUpdatePowerColor
-	power.GetDisplayPower = self.GetDisplayPower
 
 	if bg then
 		power.BG = power:CreateTexture(nil, 'BORDER')
@@ -232,13 +230,6 @@ function UF:Configure_Power(frame)
 	frame.Power.custom_backdrop = UF.db.colors.custompowerbackdrop and UF.db.colors.power_backdrop
 
 	UF:ToggleTransparentStatusBar(UF.db.colors.transparentPower, frame.Power, frame.Power.BG, nil, UF.db.colors.invertPower, db.power.reverseFill)
-end
-
-function UF:GetDisplayPower()
-	local barInfo = GetUnitPowerBarInfo(self.__owner.unit)
-	if barInfo then
-		return ALTERNATE_POWER_INDEX, barInfo.minPower
-	end
 end
 
 local tokens = {[0]='MANA','RAGE','FOCUS','ENERGY'}

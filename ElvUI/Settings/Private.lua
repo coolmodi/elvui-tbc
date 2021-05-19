@@ -65,6 +65,7 @@ V.skins = {
 
 		addonManager = true,
 		arena = true,
+		arenaRegistrar = true,
 		auctionhouse = true,
 		bags = true,
 		battlefield = true,

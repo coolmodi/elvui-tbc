@@ -98,24 +98,6 @@ local unitSelectionType = Private.unitSelectionType
 -- sourced from FrameXML/UnitPowerBarAlt.lua
 local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 
---[[ Override: Power:GetDisplayPower()
-Used to get info on the unit's alternative power, if any.
-Should return the power type index (see [Enum.PowerType.Alternate](https://wow.gamepedia.com/Enum_Unit.PowerType))
-and the minimum value for the given power type (see [info.minPower](https://wow.gamepedia.com/API_GetUnitPowerBarInfo))
-or nil if the unit has no alternative (alternate) power or it should not be
-displayed. In case of a nil return, the element defaults to the primary power
-type and zero for the minimum value.
-
-* self - the Power element
---]]
-local function GetDisplayPower(element)
-	local unit = element.__owner.unit
-	local barInfo = GetUnitPowerBarInfo(unit)
-	if(barInfo and barInfo.showOnRaid and (UnitInParty(unit) or UnitInRaid(unit))) then
-		return ALTERNATE_POWER_INDEX, barInfo.minPower
-	end
-end
-
 local function UpdateColor(self, event, unit)
 	if(self.unit ~= unit) then return end
 	local element = self.Power
@@ -224,9 +206,6 @@ local function Update(self, event, unit)
 	end
 
 	local displayType, min
-	if(element.displayAltPower) then
-		displayType, min = element:GetDisplayPower()
-	end
 
 	local cur, max = UnitPower(unit, displayType), UnitPowerMax(unit, displayType)
 	if not min then min = 0 end
@@ -447,10 +426,6 @@ local function Enable(self)
 
 		if(element:IsObjectType('StatusBar') and not (element:GetStatusBarTexture() or element:GetStatusBarAtlas())) then
 			element:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
-		end
-
-		if(not element.GetDisplayPower) then
-			element.GetDisplayPower = GetDisplayPower
 		end
 
 		element:Show()
