@@ -1,6 +1,6 @@
 ## Interface: 20501
 ## Author: Elv, Simpy
-## Version: 2.01
+## Version: 2.02
 ## Title: |cff1784d1ElvUI TBC|r |cfd9b9b9bOptionsUI|r
 ## Notes: Options for ElvUI.
 ## RequiredDeps: ElvUI
