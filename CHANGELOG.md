@@ -1,4 +1,10 @@
-### Version 2.03 [ ETA: 🍨 ]
+### Version 2.04 [ ETA: 🍨 ]
+___
+### Version 2.03 [21-05-2021]
+**• Added Master Looter Icon**  
+**• Fixed Auto Repair**  
+**• Fixed Micro Bar**  
+**• Fixed Skin error**  
 ___
 ### Version 2.02 [20-05-2021]
 **• Auto repair fix**  

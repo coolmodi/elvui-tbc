@@ -506,9 +506,9 @@ function TT:MODIFIER_STATE_CHANGED(_, key)
 		end
 	end
 
-    if _G.ElvUISpellBookTooltip:IsShown() then
-        AB:UpdateSpellBookTooltip()
-    end
+	if _G.ElvUISpellBookTooltip:IsShown() then
+		AB:UpdateSpellBookTooltip()
+	end
 end
 
 function TT:SetUnitAura(tt, unit, index, filter)

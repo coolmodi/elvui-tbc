@@ -1379,8 +1379,6 @@ function AB:Initialize()
 
 	AB:RegisterEvent('PLAYER_ENTERING_WORLD')
 	AB:RegisterEvent('UPDATE_BINDINGS', 'ReassignBindings')
-	AB:RegisterEvent('PET_BATTLE_CLOSE', 'ReassignBindings')
-	AB:RegisterEvent('PET_BATTLE_OPENING_DONE', 'RemoveBindings')
 	AB:RegisterEvent('SPELL_UPDATE_COOLDOWN', 'UpdateSpellBookTooltip')
 
 	AB:ReassignBindings()

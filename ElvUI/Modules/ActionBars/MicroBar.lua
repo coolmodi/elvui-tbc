@@ -2,14 +2,16 @@ local E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateD
 local AB = E:GetModule('ActionBars')
 
 local _G = _G
+local gsub = gsub
+local pairs = pairs
 local assert = assert
-local unpack, pairs = unpack, pairs
-local wipe, tinsert = wipe, tinsert
-
+local unpack = unpack
 local CreateFrame = CreateFrame
+local C_StorePublic_IsEnabled = C_StorePublic.IsEnabled
+local UpdateMicroButtonsParent = UpdateMicroButtonsParent
+local GetCurrentRegionName = GetCurrentRegionName
 local RegisterStateDriver = RegisterStateDriver
 local InCombatLockdown = InCombatLockdown
-local MICRO_BUTTONS = MICRO_BUTTONS
 
 local microBar = CreateFrame('Frame', 'ElvUI_MicroBar', E.UIParent)
 microBar:SetSize(100, 100)
@@ -78,14 +80,14 @@ function AB:HandleMicroButton(button)
 	end
 
 	pushed:SetTexCoord(0.17, 0.87, 0.5, 0.908)
-	pushed:SetInside()
+	pushed:SetInside(button.backdrop)
 
 	normal:SetTexCoord(0.17, 0.87, 0.5, 0.908)
-	normal:SetInside()
+	normal:SetInside(button.backdrop)
 
 	if disabled then
 		disabled:SetTexCoord(0.17, 0.87, 0.5, 0.908)
-		disabled:SetInside()
+		disabled:SetInside(button.backdrop)
 	end
 end
 
@@ -106,19 +108,15 @@ end
 function AB:UpdateMicroBarVisibility()
 	if InCombatLockdown() then
 		AB.NeedsUpdateMicroBarVisibility = true
-		self:RegisterEvent('PLAYER_REGEN_ENABLED')
+		AB:RegisterEvent('PLAYER_REGEN_ENABLED')
 		return
 	end
 
-	local visibility = self.db.microbar.visibility
-	if visibility and visibility:match('[\n\r]') then
-		visibility = visibility:gsub('[\n\r]','')
-	end
+	local visibility = AB.db.microbar.visibility
+	visibility = gsub(visibility, '[\n\r]','')
 
-	RegisterStateDriver(microBar.visibility, 'visibility', (self.db.microbar.enabled and visibility) or 'hide')
+	RegisterStateDriver(microBar.visibility, 'visibility', (AB.db.microbar.enabled and visibility) or 'hide')
 end
-
-local VisibleMicroButtons = {}
 
 function AB:UpdateMicroPositionDimensions()
 	local db = AB.db.microbar
@@ -127,31 +125,25 @@ function AB:UpdateMicroPositionDimensions()
 	microBar.backdrop:SetShown(db.backdrop)
 	microBar.backdrop:ClearAllPoints()
 
-	db.buttons = #MICRO_BUTTONS
-
 	AB:MoverMagic(microBar)
 
+	db.buttons = #_G.MICRO_BUTTONS
+
 	local backdropSpacing = db.backdropSpacing
+
 	local _, horizontal, anchorUp, anchorLeft = AB:GetGrowth(db.point)
 	local lastButton, anchorRowButton = microBar
-
-	wipe(VisibleMicroButtons)
-
-	for i = 1, #MICRO_BUTTONS do
-		local button = _G[MICRO_BUTTONS[i]]
-		if button:IsShown() then
-			tinsert(VisibleMicroButtons, button:GetName())
-		end
-	end
-
-	for i = 1, #VisibleMicroButtons do
-		local button = _G[VisibleMicroButtons[i]]
-		local lastColumnButton = _G[VisibleMicroButtons[i - db.buttonsPerRow]]
+	for i = 1, #_G.MICRO_BUTTONS do
+		local button = _G[_G.MICRO_BUTTONS[i]]
+		local lastColumnButton = i - db.buttonsPerRow
+		lastColumnButton = _G[_G.MICRO_BUTTONS[lastColumnButton]]
+		button.db = db
 
 		if i == 1 or i == db.buttonsPerRow then
 			anchorRowButton = button
 		end
 
+		button.handleBackdrop = true -- keep over HandleButton
 		AB:HandleButton(microBar, button, i, lastButton, lastColumnButton)
 
 		lastButton = button
@@ -173,6 +165,10 @@ function AB:UpdateMicroPositionDimensions()
 	AB:UpdateMicroBarVisibility()
 end
 
+function AB:UpdateMicroButtons()
+	AB:UpdateMicroPositionDimensions()
+end
+
 function AB:SetupMicroBar()
 	microBar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, 0)
 	microBar:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 4, -48)
@@ -188,11 +184,10 @@ function AB:SetupMicroBar()
 
 	_G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton.backdrop)
 
-	AB:SecureHook('MainMenuMicroButton_SetPushed')
-	AB:SecureHook('MainMenuMicroButton_SetNormal')
 	AB:SecureHook('UpdateMicroButtonsParent')
-	AB:SecureHook('UpdateMicroButtons', 'UpdateMicroPositionDimensions')
-	_G.UpdateMicroButtonsParent(microBar)
+	AB:SecureHook('MoveMicroButtons', 'UpdateMicroPositionDimensions')
+	AB:SecureHook('UpdateMicroButtons')
+	UpdateMicroButtonsParent(microBar)
 	AB:MainMenuMicroButton_SetNormal()
 	AB:UpdateMicroPositionDimensions()
 
