@@ -66,26 +66,14 @@ local menuList = {
 			HideUIPanel(PlayerTalentFrame)
 		end
 	end},
-	{text = _G.COLLECTIONS,
-	func = ToggleCollectionsJournal},
+	{text = _G.QUEST_LOG,
+	func = function() ToggleFrame(_G.QuestLogFrame) end},
 	{text = _G.CHAT_CHANNELS,
 	func = _G.ToggleChannelFrame},
 	{text = _G.TIMEMANAGER_TITLE,
 	func = function() ToggleFrame(_G.TimeManagerFrame) end},
 	{text = _G.SOCIAL_BUTTON,
 	func = ToggleFriendsFrame},
-	{text = L["Calendar"],
-	func = function() _G.GameTimeFrame:Click() end},
-	{text = _G.LFG_TITLE,
-	func = ToggleLFDParentFrame},
-	{text = _G.ENCOUNTER_JOURNAL,
-	func = function()
-		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
-			_G.EncounterJournal_LoadUI()
-		end
-
-		ToggleFrame(_G.EncounterJournal)
-	end},
 	{text = _G.MAINMENU_BUTTON,
 	func = function()
 		if not _G.GameMenuFrame:IsShown() then
@@ -109,7 +97,6 @@ local menuList = {
 	end}
 }
 
-tinsert(menuList, {text = _G.BLIZZARD_STORE, func = function() _G.StoreMicroButton:Click() end})
 tinsert(menuList, {text = _G.HELP_BUTTON, func = ToggleHelpFrame})
 
 function M:GetLocTextColor()

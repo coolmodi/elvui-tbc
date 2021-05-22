@@ -262,17 +262,6 @@ local function CreateShadow(frame, size, pass)
 	end
 end
 
-local function Kill(object)
-	if object.UnregisterAllEvents then
-		object:UnregisterAllEvents()
-		object:SetParent(E.HiddenFrame)
-	else
-		object.Show = object.Hide
-	end
-
-	object:Hide()
-end
-
 local StripTexturesBlizzFrames = {
 	'Inset',
 	'inset',
@@ -296,6 +285,17 @@ local StripTexturesBlizzFrames = {
 	'ScrollFrameBorder',
 }
 
+local function Kill(object)
+	if object.UnregisterAllEvents then
+		object:UnregisterAllEvents()
+		object:SetParent(E.HiddenFrame)
+	else
+		object.Show = object.Hide
+	end
+
+	object:Hide()
+end
+
 local STRIP_TEX = 'Texture'
 local STRIP_FONT = 'FontString'
 local function StripRegion(which, object, kill, alpha)
@@ -308,7 +308,7 @@ local function StripRegion(which, object, kill, alpha)
 		object:SetText('')
 	end
 
-	if alpha then
+	if alpha and object.SetAlpha then
 		object:SetAlpha(0)
 	end
 end

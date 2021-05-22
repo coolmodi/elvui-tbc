@@ -1835,7 +1835,8 @@ function E:ConvertActionBarKeybinds()
 			end
 		end
 
-		SaveBindings(GetCurrentBindingSet())
+		local cur = GetCurrentBindingSet()
+		if cur then SaveBindings(cur) end
 
 		ElvCharacterDB.ConvertKeybindings = true
 	end

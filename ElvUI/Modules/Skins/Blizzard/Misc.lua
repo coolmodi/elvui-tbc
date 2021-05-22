@@ -187,12 +187,16 @@ function S:BlizzardMiscFrames()
 		end
 
 		local Backdrop = _G[listFrameName..'Backdrop']
-		if not Backdrop.template then Backdrop:StripTextures() end
-		Backdrop:SetTemplate('Transparent')
+		if Backdrop and not Backdrop.backdrop then
+			Backdrop:StripTextures()
+			Backdrop:CreateBackdrop('Transparent')
+		end
 
 		local menuBackdrop = _G[listFrameName..'MenuBackdrop']
-		if not menuBackdrop.template then menuBackdrop:StripTextures() end
-		menuBackdrop:SetTemplate('Transparent')
+		if menuBackdrop and not menuBackdrop.backdrop then
+			menuBackdrop:StripTextures()
+			menuBackdrop:CreateBackdrop('Transparent')
+		end
 	end)
 
 	hooksecurefunc('UIDropDownMenu_SetIconImage', function(icon, texture)
@@ -204,7 +208,7 @@ function S:BlizzardMiscFrames()
 	end)
 
 	hooksecurefunc('ToggleDropDownMenu', function(level)
-		if ( not level ) then
+		if not level then
 			level = 1
 		end
 
@@ -215,7 +219,6 @@ function S:BlizzardMiscFrames()
 			local check = _G['DropDownList'..level..'Button'..i..'Check']
 			local uncheck = _G['DropDownList'..level..'Button'..i..'UnCheck']
 			local highlight = _G['DropDownList'..level..'Button'..i..'Highlight']
-			local text = _G['DropDownList'..level..'Button'..i..'NormalText']
 
 			highlight:SetTexture(E.Media.Textures.Highlight)
 			highlight:SetBlendMode('BLEND')
@@ -229,12 +232,10 @@ function S:BlizzardMiscFrames()
 			button.backdrop:Hide()
 
 			if not button.notCheckable then
-				S:HandlePointXY(text, 5)
-
 				uncheck:SetTexture()
 				local _, co = check:GetTexCoord()
 				if co == 0 then
-					check:SetTexture('Interface\\Buttons\\UI-CheckBox-Check')
+					check:SetTexture([[Interface\Buttons\UI-CheckBox-Check]])
 					check:SetVertexColor(r, g, b, 1)
 					check:Size(20, 20)
 					check:SetDesaturated(true)

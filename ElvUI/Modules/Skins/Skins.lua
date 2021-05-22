@@ -388,7 +388,7 @@ function S:HandleCategoriesButtons(button, strip)
 
 	for _, Region in pairs(S.Blizzard.Regions) do
 		Region = ButtonName and _G[ButtonName..Region] or button[Region]
-		if Region then
+		if Region and Region.SetAlpha then
 			Region:SetAlpha(0)
 		end
 	end
@@ -575,7 +575,7 @@ function S:HandleBlizzardRegions(frame, name, kill)
 		if object then
 			if kill then
 				object:Kill()
-			else
+			elseif object.SetAlpha then
 				object:SetAlpha(0)
 			end
 		end
