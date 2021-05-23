@@ -135,6 +135,7 @@ function AB:PositionAndSizeBarPet()
 		lastButton = _G['PetActionButton'..i-1]
 		autoCast = _G['PetActionButton'..i..'AutoCastable']
 		lastColumnButton = _G['PetActionButton'..i-buttonsPerRow]
+		button.commandName = 'BONUSACTIONBUTTON'..i -- to support KB like retail
 		button.db = db
 
 		bar.buttons[i] = button

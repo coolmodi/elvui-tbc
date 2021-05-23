@@ -341,7 +341,6 @@ L["TopWidget"] = true
 L["PowerBarWidget"] = true
 L["Unhittable:"] = "未命中:"
 L["Vehicle Seat Frame"] = "載具座位框"
-L["Vendor / Delete Grays"] = "出售/摧毁灰色物品"
 L["Vendor Grays"] = "出售灰色物品"
 L["Vendoring Grays"] = "正在出售灰色物品"
 L["Voice Overlay"] = "語音浮層"

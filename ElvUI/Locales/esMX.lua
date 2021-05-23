@@ -341,7 +341,6 @@ L["TopWidget"] = true
 L["PowerBarWidget"] = true
 L["Unhittable:"] = "Imbatible:"
 L["Vehicle Seat Frame"] = "Marco del Asiento del Vehículo"
-L["Vendor / Delete Grays"] = "Vender / Eliminar Grises"
 L["Vendor Grays"] = "Vender Objetos Grises"
 L["Vendoring Grays"] = "Vendiendo Grises"
 L["Voice Overlay"] = "Voz Superpuesta"

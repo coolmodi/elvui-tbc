@@ -6,7 +6,7 @@ local ElvUF = E.oUF
 assert(ElvUF, 'ElvUI was unable to locate oUF.')
 
 local _G = _G
-local pairs, ipairs, wipe, tinsert = pairs, ipairs, wipe, tinsert
+local pairs, ipairs = pairs, ipairs
 local format, select, strsplit, tostring = format, select, strsplit, tostring
 
 local CreateFrame = CreateFrame
@@ -27,9 +27,6 @@ local UnitIsPVPSanctuary = UnitIsPVPSanctuary
 local UnitIsUnit = UnitIsUnit
 local UnitName = UnitName
 local UnitReaction = UnitReaction
-local UnitSelectionType = UnitSelectionType
-local UnitThreatSituation = UnitThreatSituation
-local ShowBossFrameWhenUninteractable = ShowBossFrameWhenUninteractable
 local C_NamePlate_SetNamePlateEnemyClickThrough = C_NamePlate.SetNamePlateEnemyClickThrough
 local C_NamePlate_SetNamePlateEnemySize = C_NamePlate.SetNamePlateEnemySize
 local C_NamePlate_SetNamePlateFriendlyClickThrough = C_NamePlate.SetNamePlateFriendlyClickThrough
@@ -491,7 +488,6 @@ function NP:ConfigureAll(init)
 
 	NP:StyleFilterConfigure() -- keep this at the top
 	NP:SetNamePlateClickThrough()
-	NP:SetNamePlateSizes()
 	NP:PLAYER_REGEN_ENABLED()
 	NP:UpdateTargetPlate(_G.ElvNP_TargetClassPower)
 	NP:Update_StatusBars()
@@ -676,15 +672,6 @@ function NP:HideInterfaceOptions()
 	end
 end
 
-function NP:SetNamePlateSizes()
-	if InCombatLockdown() then return end
-
-	local scale = E.global.general.UIScale
-	C_NamePlate_SetNamePlateSelfSize(NP.db.plateSize.personalWidth * scale, NP.db.plateSize.personalHeight * scale)
-	C_NamePlate_SetNamePlateEnemySize(NP.db.plateSize.enemyWidth * scale, NP.db.plateSize.enemyHeight * scale)
-	C_NamePlate_SetNamePlateFriendlySize(NP.db.plateSize.friendlyWidth * scale, NP.db.plateSize.friendlyHeight * scale)
-end
-
 function NP:Initialize()
 	NP.db = E.db.nameplates
 
@@ -708,8 +695,6 @@ function NP:Initialize()
 		BlizzPlateManaBar:Hide()
 		BlizzPlateManaBar:UnregisterAllEvents()
 	end
-
-	hooksecurefunc(_G.NamePlateDriverFrame, 'UpdateNamePlateOptions', NP.SetNamePlateSizes)
 
 	ElvUF:Spawn('player', 'ElvNP_Player', '')
 

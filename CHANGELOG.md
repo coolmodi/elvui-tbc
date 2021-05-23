@@ -1,4 +1,14 @@
-### Version 2.05 [ ETA: 🍨 ]
+### Version 2.06 [ ETA: 🍨 ]
+___
+### Version 2.05 [23-05-2021]
+**• Added KeyBind (/kb) support for Micro, Pet & Stance- Bar**  
+**• Fixed Friendly Blizzard NamePlates in instances**  
+**• Fixed Git issue #3 (PixelPerfect error)**  
+**• Fixed Git issue #4 (SaveBindings error)**  
+**• Localization update for koKR (Credits: Siyoung/nadugi)**  
+**• Reworked Vendor Grays button in Bags (Delete Grays is blocked)**  
+**• Updated DataText dropdown for Attack Power Tooltip**  
+**• Updated LibHealComm-4.0**  
 ___
 ### Version 2.04 [22-05-2021]
 **• Fixed SaveBindings error**  
