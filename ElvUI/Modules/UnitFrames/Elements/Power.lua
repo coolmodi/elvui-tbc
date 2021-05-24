@@ -111,8 +111,6 @@ function UF:Configure_Power(frame)
 
 		if self.db.colors.powerselection then
 			power.colorSelection = true
-		--[[elseif self.db.colors.powerthreat then
-			power.colorThreat = true]]
 		elseif self.db.colors.powerclass then
 			power.colorClass = true
 			power.colorReaction = true

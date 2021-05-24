@@ -1,4 +1,16 @@
-### Version 2.06 [ ETA: 🍨 ]
+### Version 2.07 [ ETA: 🍨 ]
+___
+### Version 2.06 [24-05-2021]
+**• Added an option to turn off Quest Icons in Bags**  
+**• Added back 'Delete Grays' to Bags**  
+**• Added options for Position, X & Y- Offset for Bags ItemCount**  
+**• Added options for Position, X & Y- Offset for Bags ItemLevel**  
+**• Fixed an error about PixelPerfect local 'n' (a nil value)**  
+**• Removed Calendar options for the Minimap (Not available in TBC)**  
+**• Removed CD text from Wand/Shoot GCD swipe**  
+**• Tweaked some Skins (DebugTools, HelpFrame)**  
+**• Updated AFK tags to display AFK instead of Away From Keyboard**  
+**• Updated TurtleBuffs default whitelist**  
 ___
 ### Version 2.05 [23-05-2021]
 **• Added KeyBind (/kb) support for Micro, Pet & Stance- Bar**  

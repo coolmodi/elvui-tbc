@@ -57,11 +57,11 @@ local UnitPVPName = UnitPVPName
 local UnitReaction = UnitReaction
 local UnitSex = UnitSex
 
-local CHAT_FLAG_AFK = CHAT_FLAG_AFK:gsub('<(.-)>', '|r<|cffFF3333%1|r>')
-local CHAT_FLAG_DND = CHAT_FLAG_DND:gsub('<(.-)>', '|r<|cffFFFF33%1|r>')
+local CHAT_FLAG_AFK = _G.CHAT_FLAG_AFK:gsub('<(.-)>', '|r<|cffFF3333%1|r>')
+local CHAT_FLAG_DND = _G.CHAT_FLAG_DND:gsub('<(.-)>', '|r<|cffFFFF33%1|r>')
+local DEFAULT_AFK_MESSAGE =  _G.CHAT_FLAG_AFK:gsub('<(.-)>', '%1')
 
 local SPELL_POWER_MANA = Enum.PowerType.Mana
-local DEFAULT_AFK_MESSAGE = DEFAULT_AFK_MESSAGE
 local LEVEL = LEVEL
 local PVP = PVP
 
@@ -111,7 +111,7 @@ E.TagFunctions.Abbrev = Abbrev
 ElvUF.Tags.Events['afk'] = 'PLAYER_FLAGS_CHANGED'
 ElvUF.Tags.Methods['afk'] = function(unit)
 	if UnitIsAFK(unit) then
-		return format('|cffFFFFFF[|r|cffFF0000%s|r|cFFFFFFFF]|r', DEFAULT_AFK_MESSAGE)
+		return format('|cffFFFFFF[|r|cffFF3333%s|r|cFFFFFFFF]|r', DEFAULT_AFK_MESSAGE)
 	end
 end
 

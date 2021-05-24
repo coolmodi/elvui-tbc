@@ -214,6 +214,8 @@ function B:UpdateItemLevelDisplay()
 			for slotID = 1, GetContainerNumSlots(bagID) do
 				local slot = bagFrame.Bags[bagID][slotID]
 				if slot and slot.itemLevel then
+					slot.itemLevel:ClearAllPoints()
+					slot.itemLevel:Point(E.db.bags.itemLevelPosition, E.db.bags.itemLevelxOffset, E.db.bags.itemLevelyOffset)
 					slot.itemLevel:FontTemplate(E.Libs.LSM:Fetch('font', E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
 				end
 			end
@@ -231,6 +233,8 @@ function B:UpdateCountDisplay()
 			for slotID = 1, GetContainerNumSlots(bagID) do
 				local slot = bagFrame.Bags[bagID][slotID]
 				if slot and slot.Count then
+					slot.Count:ClearAllPoints()
+					slot.Count:Point(E.db.bags.countPosition, E.db.bags.countxOffset, E.db.bags.countyOffset)
 					slot.Count:FontTemplate(E.Libs.LSM:Fetch('font', E.db.bags.countFont), E.db.bags.countFontSize, E.db.bags.countFontOutline)
 				end
 			end
@@ -314,14 +318,11 @@ function B:UpdateSlot(frame, bagID, slotID)
 	local bagType = frame.Bags[bagID].type
 	local keyring = (bagID == -2)
 	local texture, count, locked, rarity, readable, _, itemLink, _, noValue, itemID = GetContainerItemInfo(bagID, slotID)
-	slot.name, slot.rarity, slot.locked = nil, rarity, locked
+	slot.name, slot.rarity, slot.locked, slot.isQuestItem = nil, rarity, locked, false
 
 	local link = GetContainerItemLink(bagID, slotID)
 
 	slot:Show()
-	if slot.questIcon then
-		slot.questIcon:Hide()
-	end
 
 	slot.isJunk = (slot.rarity and slot.rarity == LE_ITEM_QUALITY_POOR) and not noValue
 	slot.junkDesaturate = slot.isJunk and E.db.bags.junkDesaturate
@@ -355,11 +356,12 @@ function B:UpdateSlot(frame, bagID, slotID)
 	local professionColors = keyring and B.KeyRingColor or B.ProfessionColors[bagType]
 	local showItemLevel = B.db.itemLevel and link and not professionColors
 	local showBindType = B.db.showBindType and (slot.rarity and slot.rarity > LE_ITEM_QUALITY_COMMON)
-	local forceColor, isQuestItem, r, g, b, a = true
+	local forceColor, r, g, b, a = true
 
 	if link then
 		local name, _, itemRarity, _, _, _, _, _, itemEquipLoc, _, _, itemClassID, itemSubClassID, bindType = GetItemInfo(link)
 		slot.name = name
+		slot.isQuestItem = itemClassID == LE_ITEM_CLASS_QUESTITEM
 
 		if slot.rarity or itemRarity then
 			r, g, b = GetItemQualityColor(slot.rarity or itemRarity)
@@ -379,7 +381,6 @@ function B:UpdateSlot(frame, bagID, slotID)
 			end
 		end
 
-		isQuestItem = itemClassID == LE_ITEM_CLASS_QUESTITEM
 		if showBindType and (bindType == 2 or bindType == 3) then
 			local BoE, BoU
 
@@ -413,14 +414,19 @@ function B:UpdateSlot(frame, bagID, slotID)
 		r, g, b, a = unpack(professionColors)
 	--elseif questId and not isActiveQuest then
 	--	r, g, b, a = unpack(B.QuestColors.questStarter)
-	elseif isQuestItem then
+	elseif slot.isQuestItem then
 		r, g, b, a = unpack(B.QuestColors.questItem)
-		if slot.questIcon then
-			slot.questIcon:Show()
-		end
 	elseif not link or B.db.qualityColors and slot.rarity and slot.rarity <= LE_ITEM_QUALITY_COMMON then
 		r, g, b, a = unpack(E.media.bordercolor)
 		forceColor = nil
+	end
+
+	if slot.questIcon then
+		if slot.isQuestItem and E.db.bags.questIcon then
+			slot.questIcon:Show()
+		else
+			slot.questIcon:Hide()
+		end
 	end
 
 	slot:SetBackdropBorderColor(r, g, b, a)
@@ -701,9 +707,9 @@ function B:GetGraysValue()
 	return value
 end
 
-function B:VendorGrays()
+function B:VendorGrays(delete)
 	if B.SellFrame:IsShown() then return end
-	if not _G.MerchantFrame or not _G.MerchantFrame:IsShown() then
+	if (not _G.MerchantFrame or not _G.MerchantFrame:IsShown()) and not delete then
 		E:Print(L["You must be at a vendor."])
 		return
 	end
@@ -721,13 +727,13 @@ function B:VendorGrays()
 		end
 	end
 
-	local listMax = B.SellFrame.Info.itemList and tmaxn(B.SellFrame.Info.itemList)
-	if not listMax or listMax < 1 then return end
-
+	if (not B.SellFrame.Info.itemList) then return end
+	if (tmaxn(B.SellFrame.Info.itemList) < 1) then return end
 	--Resetting stuff
+	B.SellFrame.Info.delete = delete or false
 	B.SellFrame.Info.ProgressTimer = 0
 	B.SellFrame.Info.SellInterval = 0.2
-	B.SellFrame.Info.ProgressMax = listMax
+	B.SellFrame.Info.ProgressMax = tmaxn(B.SellFrame.Info.itemList)
 	B.SellFrame.Info.goldGained = 0
 	B.SellFrame.Info.itemsSold = 0
 
@@ -737,6 +743,19 @@ function B:VendorGrays()
 
 	--Time to sell
 	B.SellFrame:Show()
+end
+
+function B:VendorGrayCheck()
+	local value = B:GetGraysValue()
+
+	if value == 0 then
+		E:Print(L['No gray items to delete.'])
+	elseif not _G.MerchantFrame or not _G.MerchantFrame:IsShown() then
+		E.PopupDialogs.DELETE_GRAYS.Money = value
+		E:StaticPopup_Show('DELETE_GRAYS')
+	else
+		B:VendorGrays()
+	end
 end
 
 function B:SetButtonTexture(button, texture)
@@ -1026,11 +1045,11 @@ function B:ConstructContainerFrame(name, isBank)
 		f.vendorGraysButton:Point('RIGHT', f.bagsButton, 'LEFT', -5, 0)
 		B:SetButtonTexture(f.vendorGraysButton, 'Interface/ICONS/INV_Misc_Coin_01')
 		f.vendorGraysButton:StyleButton(nil, true)
-		f.vendorGraysButton.ttText = L["Vendor Grays"]
+		f.vendorGraysButton.ttText = L["Vendor / Delete Grays"]
 		f.vendorGraysButton.ttValue = B.GetGraysValue
 		f.vendorGraysButton:SetScript('OnEnter', B.Tooltip_Show)
 		f.vendorGraysButton:SetScript('OnLeave', GameTooltip_Hide)
-		f.vendorGraysButton:SetScript('OnClick', B.VendorGrays)
+		f.vendorGraysButton:SetScript('OnClick', B.VendorGrayCheck)
 
 		-- Keyring
 		f.keyRingButton = CreateFrame('Button', nil, f.holderFrame)
@@ -1083,7 +1102,7 @@ function B:ConstructContainerButton(f, slotID, bagID)
 	end
 
 	slot.Count:ClearAllPoints()
-	slot.Count:Point('BOTTOMRIGHT', 0, 2)
+	slot.Count:Point(E.db.bags.countPosition, E.db.bags.countxOffset, E.db.bags.countyOffset)
 	slot.Count:FontTemplate(E.Libs.LSM:Fetch('font', E.db.bags.countFont), E.db.bags.countFontSize, E.db.bags.countFontOutline)
 
 	if not (slot.questIcon) then
@@ -1122,7 +1141,7 @@ function B:ConstructContainerButton(f, slotID, bagID)
 	slot.icon:SetTexCoord(unpack(E.TexCoords))
 
 	slot.itemLevel = slot:CreateFontString(nil, 'OVERLAY', nil, 1)
-	slot.itemLevel:Point('BOTTOMRIGHT', 0, 2)
+	slot.itemLevel:Point(E.db.bags.itemLevelPosition, E.db.bags.itemLevelxOffset, E.db.bags.itemLevelyOffset)
 	slot.itemLevel:FontTemplate(E.Libs.LSM:Fetch('font', E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
 
 	slot.bindType = slot:CreateFontString(nil, 'OVERLAY', nil, 1)
@@ -1411,6 +1430,7 @@ function B:MERCHANT_CLOSED()
 	B.SellFrame:Hide()
 
 	twipe(B.SellFrame.Info.itemList)
+	B.SellFrame.Info.delete = false
 	B.SellFrame.Info.ProgressTimer = 0
 	B.SellFrame.Info.SellInterval = E.db.bags.vendorGrays.interval
 	B.SellFrame.Info.ProgressMax = 0
@@ -1421,8 +1441,8 @@ end
 function B:ProgressQuickVendor()
 	local item = B.SellFrame.Info.itemList[1]
 	if not item then return nil, true end --No more to sell
-	local bag, slot,itemPrice, link = unpack(item)
 
+	local bag, slot, itemPrice, link = unpack(item)
 	local stackCount = select(2, GetContainerItemInfo(bag, slot)) or 1
 	local stackPrice = (itemPrice or 0) * stackCount
 

@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateD
 local S = E:GetModule('Skins')
 
 local _G = _G
-local select, unpack = select, unpack
+local select, pairs, unpack = select, pairs, unpack
 
 function S:HelpFrame()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.help) then return end
@@ -14,16 +14,21 @@ function S:HelpFrame()
 	_G.HelpFrameTopBorder:StripTextures(true)
 
 	-- Buttons
-	_G.HelpFrameCloseButton:StripTextures(true)
+	_G.HelpFrameCloseButton:StripTextures()
 	S:HandleCloseButton(_G.HelpFrameCloseButton)
 
 	-- Insets
-	_G.HelpBrowser.BrowserInset:StripTextures()
-	_G.HelpBrowserInsetTopBorder:StripTextures()
-	_G.HelpBrowserInsetLeftBorder:StripTextures()
-	_G.HelpBrowserInsetRightBorder:StripTextures()
-	_G.HelpBrowserInsetBottomBorder:StripTextures()
+	local insets = {
+		_G.HelpBrowser.BrowserInset,
+		_G.HelpBrowserInsetTopBorder,
+		_G.HelpBrowserInsetLeftBorder,
+		_G.HelpBrowserInsetRightBorder,
+		_G.HelpBrowserInsetBottomBorder
+	}
 
+	for _, inset in pairs(insets) do
+		inset:StripTextures()
+	end
 end
 
 S:AddCallback('HelpFrame')

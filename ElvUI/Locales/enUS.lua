@@ -341,6 +341,7 @@ L["TopWidget"] = true
 L["PowerBarWidget"] = true
 L["Unhittable:"] = true
 L["Vehicle Seat Frame"] = true
+L["Vendor / Delete Grays"] = true
 L["Vendor Grays"] = true
 L["Vendoring Grays"] = true
 L["Voice Overlay"] = true

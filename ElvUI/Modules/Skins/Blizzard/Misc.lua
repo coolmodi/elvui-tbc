@@ -111,7 +111,6 @@ function S:BlizzardMiscFrames()
 		end
 	end
 
-
 	-- reskin popup buttons
 	for i = 1, 4 do
 		local StaticPopup = _G['StaticPopup'..i]

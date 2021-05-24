@@ -175,6 +175,7 @@ G.unitframe.aurafilters.TurtleBuffs = {
 	-- Mage
 		[11958] = Defaults(2), -- Ice Block A
 		[27619] = Defaults(2), -- Ice Block B
+		[45438] = Defaults(2), -- Ice Block C
 	-- Paladin
 		[498]   = Defaults(2), -- Divine Protection(Rank 1)
 		[5573]  = Defaults(2), -- Divine Protection(Rank 2)

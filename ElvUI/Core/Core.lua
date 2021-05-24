@@ -1069,11 +1069,6 @@ do -- BFA Convert, deprecated..
 			end
 		end
 
-		--[[Remove stale font settings from Cooldown system for top auras
-		if E.db.auras.cooldown.fonts then
-			E.db.auras.cooldown.fonts = nil
-		end]]
-
 		--Convert Nameplate Aura Duration to new Cooldown system
 		if E.db.nameplates.durationFont then
 			E.db.nameplates.cooldown.fonts.font = E.db.nameplates.durationFont

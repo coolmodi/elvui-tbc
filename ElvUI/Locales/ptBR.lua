@@ -341,6 +341,7 @@ L["TopWidget"] = true
 L["PowerBarWidget"] = true
 L["Unhittable:"] = "Inacertável"
 L["Vehicle Seat Frame"] = "Quadro de Assento de Veículo"
+L["Vendor / Delete Grays"] = "Vendedor / Deletar Cinzentos"
 L["Vendor Grays"] = "Vender Itens Cinzentos"
 L["Vendoring Grays"] = "Vender Cinzentos"
 L["Voice Overlay"] = true

@@ -63,14 +63,6 @@ Maps.args.minimap.args.zoomResetGroup.args.time =  ACH:Range(L["Seconds"], nil, 
 
 Maps.args.minimap.args.icons = ACH:Group(L["Minimap Buttons"], nil, 4, nil, function(info) return E.db.general.minimap.icons[info[#info - 1]][info[#info]] end, function(info, value) E.db.general.minimap.icons[info[#info - 1]][info[#info]] = value; MM:UpdateSettings() end, function() return not E.private.general.minimap.enable end)
 
-Maps.args.minimap.args.icons.args.calendar = ACH:Group(L["Calendar"], nil, 2)
-Maps.args.minimap.args.icons.args.calendar.args.hideCalendar = ACH:Toggle(L["Hide"], nil, 1, nil, nil, nil, function() return E.private.general.minimap.hideCalendar end, function(_, value) E.private.general.minimap.hideCalendar = value; MM:UpdateSettings() end)
-Maps.args.minimap.args.icons.args.calendar.args.spacer = ACH:Spacer(2, 'full')
-Maps.args.minimap.args.icons.args.calendar.args.position = ACH:Select(L["Position"], nil, 3, buttonPositions, nil, nil, nil, nil, function() return E.private.general.minimap.hideCalendar end)
-Maps.args.minimap.args.icons.args.calendar.args.scale = ACH:Range(L["Scale"], nil, 4, buttonScale, nil, nil, nil, function() return E.private.general.minimap.hideCalendar end)
-Maps.args.minimap.args.icons.args.calendar.args.xOffset = ACH:Range(L["X-Offset"], nil, 5, buttonOffsets, nil, nil, nil, function() return E.private.general.minimap.hideCalendar end)
-Maps.args.minimap.args.icons.args.calendar.args.yOffset = ACH:Range(L["Y-Offset"], nil, 6, buttonOffsets, nil, nil, nil, function() return E.private.general.minimap.hideCalendar end)
-
 E.Options.args.maps.args.minimap.args.icons.args.tracking = ACH:Group(L["Tracking"])
 E.Options.args.maps.args.minimap.args.icons.args.tracking.args.hideTracking = ACH:Toggle(L["Hide"], nil, 1, nil, nil, nil, function() return E.private.general.minimap.hideTracking end, function(_, value) E.private.general.minimap.hideTracking = value; MM:UpdateSettings() end)
 E.Options.args.maps.args.minimap.args.icons.args.tracking.args.spacer = ACH:Spacer(2, "full")

@@ -91,7 +91,7 @@ function S:Blizzard_DebugTools()
 
 	-- Tooltips
 	if E.private.skins.blizzard.tooltip then
-		_G.FrameStackTooltip:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
+		_G.FrameStackTooltip:SetTemplate('Transparent')
 	end
 
 	--New Table Attribute Display: mouse over frame and (/tableinspect or [/fstack -> then Ctrl])

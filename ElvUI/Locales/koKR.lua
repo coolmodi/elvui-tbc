@@ -298,6 +298,7 @@ L["Type /hellokitty to revert to old settings."] = "/hellokitty 를 입력해서
 L["Unhittable:"] = "100% 방어행동까지"
 L["Unlock various elements of the UI to be repositioned."] = "ElvUI의 이동가능한 모든 프레임들을 설정 하는 화면모드로 전환합니다.."
 L["VehicleLeaveButton"] = "비행 중지 버튼"
+L["Vendor / Delete Grays"] = "잡템 판매/삭제"
 L["Vendored gray items for: %s"] = "모든 잡탬들을 판매했습니다.: %s"
 L["Vendoring Grays"] = "잡탬_팔기"
 L["Welcome to ElvUI TBC version %.2f!"] = "ElvUI TBC 버전 %.2f에 오신 것을 환영합니다!"

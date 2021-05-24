@@ -19,7 +19,7 @@ G.general = {
 		yOffset = 0
 	},
 	AceGUI = {
-		width = 960,
+		width = 970,
 		height = 755
 	},
 	showMissingTalentAlert = false,

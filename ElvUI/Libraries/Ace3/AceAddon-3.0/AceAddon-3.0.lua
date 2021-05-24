@@ -53,9 +53,7 @@ local setmetatable, getmetatable, rawset, rawget = setmetatable, getmetatable, r
 -- List them here for Mikk's FindGlobals script
 -- GLOBALS: LibStub, IsLoggedIn, geterrorhandler
 
---[[
-	 xpcall safecall implementation
-]]
+-- xpcall safecall implementation
 local xpcall = xpcall
 
 local function errorhandler(err)

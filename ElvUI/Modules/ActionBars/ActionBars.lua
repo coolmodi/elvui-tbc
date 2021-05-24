@@ -37,6 +37,7 @@ local SPELLS_PER_PAGE = SPELLS_PER_PAGE
 local TOOLTIP_UPDATE_TIME = TOOLTIP_UPDATE_TIME
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 local COOLDOWN_TYPE_LOSS_OF_CONTROL = COOLDOWN_TYPE_LOSS_OF_CONTROL
+local MIN_DURATION = 2 --the minimum duration to show cooldown text for
 
 local LAB = E.Libs.LAB
 local LSM = E.Libs.LSM
@@ -1240,7 +1241,7 @@ function AB:UpdateChargeCooldown(button, duration)
 	if not cd then return end
 
 	local oldstate = cd.hideText
-	cd.hideText = (duration and duration > 1.5) or (AB.db.chargeCooldown == false) or nil
+	cd.hideText = (duration and duration > MIN_DURATION) or (AB.db.chargeCooldown == false) or nil
 	if cd.timer and (oldstate ~= cd.hideText) then
 		E:ToggleBlizzardCooldownText(cd, cd.timer)
 		E:Cooldown_ForceUpdate(cd.timer)
@@ -1258,8 +1259,7 @@ function AB:ToggleCooldownOptions()
 end
 
 function AB:SetButtonDesaturation(button, duration)
-
-	if AB.db.desaturateOnCooldown and (duration and duration > 1.5) then
+	if AB.db.desaturateOnCooldown and (duration and duration > MIN_DURATION) then
 		button.icon:SetDesaturated(true)
 		button.saturationLocked = true
 	else

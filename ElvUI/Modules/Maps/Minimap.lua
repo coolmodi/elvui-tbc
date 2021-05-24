@@ -243,20 +243,6 @@ function M:UpdateSettings()
 
 	_G.MiniMapMailIcon:SetTexture(E.Media.MailIcons[E.db.general.minimap.icons.mail.texture] or E.Media.MailIcons.Mai3)
 
-	local GameTimeFrame = _G.GameTimeFrame
-	if GameTimeFrame then
-		if E.private.general.minimap.hideCalendar then
-			GameTimeFrame:Hide()
-		else
-			local pos = E.db.general.minimap.icons.calendar.position or 'TOPRIGHT'
-			local scale = E.db.general.minimap.icons.calendar.scale or 1
-			GameTimeFrame:ClearAllPoints()
-			GameTimeFrame:Point(pos, Minimap, pos, E.db.general.minimap.icons.calendar.xOffset or 0, E.db.general.minimap.icons.calendar.yOffset or 0)
-			GameTimeFrame:SetScale(scale)
-			GameTimeFrame:Show()
-		end
-	end
-
 	local MiniMapMailFrame = _G.MiniMapMailFrame
 	if MiniMapMailFrame then
 		local pos = E.db.general.minimap.icons.mail.position or 'TOPRIGHT'
@@ -388,7 +374,8 @@ function M:Initialize()
 		_G.MinimapNorthTag,
 		_G.MinimapZoneTextButton,
 		_G.MinimapToggleButton,
-		_G.MiniMapMailBorder
+		_G.MiniMapMailBorder,
+		_G.GameTimeFrame,
 	}
 
 	for _, frame in pairs(frames) do

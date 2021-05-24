@@ -578,7 +578,7 @@ E.Options.args.datatexts = {
 								end
 
 								PanelGroup_Create(name)
-								DT:BuildPanelFrame(name, E.global.datatexts.customPanels[name])
+								DT:BuildPanelFrame(name)
 								DT:PanelLayoutOptions()
 
 								E.Libs.AceConfigDialog:SelectGroup('ElvUI', 'datatexts', 'panels', name)
