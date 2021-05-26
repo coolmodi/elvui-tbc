@@ -9,9 +9,9 @@ function S:SkinBattlefield()
 	local BattlefieldFrame = _G.BattlefieldFrame
 
 	BattlefieldFrame:StripTextures(true)
-	BattlefieldFrame:CreateBackdrop("Transparent")
-	BattlefieldFrame.backdrop:Point("TOPLEFT", 10, -12)
-	BattlefieldFrame.backdrop:Point("BOTTOMRIGHT", -32, 73)
+	BattlefieldFrame:CreateBackdrop('Transparent')
+	BattlefieldFrame.backdrop:Point('TOPLEFT', 10, -12)
+	BattlefieldFrame.backdrop:Point('BOTTOMRIGHT', -32, 73)
 
 	_G.BattlefieldListScrollFrame:StripTextures()
 	S:HandleScrollBar(_G.BattlefieldListScrollFrameScrollBar)
@@ -22,7 +22,7 @@ function S:SkinBattlefield()
 	S:HandleButton(_G.BattlefieldFrameJoinButton)
 	S:HandleButton(_G.BattlefieldFrameGroupJoinButton)
 
-	_G.BattlefieldFrameGroupJoinButton:Point("RIGHT", _G.BattlefieldFrameJoinButton, "LEFT", -2, 0)
+	_G.BattlefieldFrameGroupJoinButton:Point('RIGHT', _G.BattlefieldFrameJoinButton, 'LEFT', -2, 0)
 
 	S:HandleCloseButton(_G.BattlefieldFrameCloseButton)
 end

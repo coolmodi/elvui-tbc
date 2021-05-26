@@ -17,7 +17,7 @@ function B:Initialize()
 	B:Handle_UIWidgets()
 
 	if not (IsAddOnLoaded('DugisGuideViewerZ') or IsAddOnLoaded('!KalielsTracker')) then
-		B:MoveQuestWatchFrame()
+		B:QuestWatchFrame()
 	end
 
 	-- MicroButton Talent Alert

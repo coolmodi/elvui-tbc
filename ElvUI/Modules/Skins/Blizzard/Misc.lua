@@ -186,15 +186,15 @@ function S:BlizzardMiscFrames()
 		end
 
 		local Backdrop = _G[listFrameName..'Backdrop']
-		if Backdrop and not Backdrop.backdrop then
+		if Backdrop and not Backdrop.template then
 			Backdrop:StripTextures()
-			Backdrop:CreateBackdrop('Transparent')
+			Backdrop:SetTemplate('Transparent')
 		end
 
 		local menuBackdrop = _G[listFrameName..'MenuBackdrop']
-		if menuBackdrop and not menuBackdrop.backdrop then
+		if menuBackdrop and not menuBackdrop.template then
 			menuBackdrop:StripTextures()
-			menuBackdrop:CreateBackdrop('Transparent')
+			menuBackdrop:SetTemplate('Transparent')
 		end
 	end)
 
@@ -224,7 +224,7 @@ function S:BlizzardMiscFrames()
 			highlight:SetDrawLayer('BACKGROUND')
 			highlight:SetVertexColor(r, g, b)
 
-			if not button.backdrop then
+			if not button.template then
 				button:CreateBackdrop()
 			end
 
@@ -266,7 +266,7 @@ function S:BlizzardMiscFrames()
 	-- StackSplit
 	local StackSplitFrame = _G.StackSplitFrame
 	StackSplitFrame:StripTextures()
-	StackSplitFrame:CreateBackdrop('Transparent')
+	StackSplitFrame:SetTemplate('Transparent')
 
 	StackSplitFrame.bg1 = CreateFrame('Frame', nil, StackSplitFrame)
 	StackSplitFrame.bg1:SetTemplate('Transparent')

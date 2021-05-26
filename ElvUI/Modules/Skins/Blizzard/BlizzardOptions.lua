@@ -266,7 +266,7 @@ function S:BlizzardOptions()
 
 	for _, Frame in pairs(OptionsFrames) do
 		Frame:StripTextures()
-		Frame:CreateBackdrop('Transparent')
+		Frame:SetTemplate('Transparent')
 	end
 
 	for _, Frame in pairs(OptionsFrameBackdrops) do

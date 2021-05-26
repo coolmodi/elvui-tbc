@@ -1,4 +1,12 @@
-### Version 2.07 [ ETA: 🍨 ]
+### Version 2.08 [ ETA: 🍨 ]
+___
+### Version 2.07 [25-05-2021]
+**• Added an option to enable/disable the ElvUI Quest Objective Frame Mover**  
+**• Blacklisted Honor Event Buff on UnitFrames by default**  
+**• Fixed an issue with Blizzard Arena Frames**  
+**• Fixed Soul Bags color issue**  
+**• Fixed Zoom Out button for Fullscreen Worldmap**  
+**• Updated Battlegrounds Stats DataTexts**  
 ___
 ### Version 2.06 [24-05-2021]
 **• Added an option to turn off Quest Icons in Bags**  

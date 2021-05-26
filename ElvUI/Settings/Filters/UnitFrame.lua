@@ -356,16 +356,8 @@ G.unitframe.aurafilters.PlayerBuffs = {
 G.unitframe.aurafilters.Blacklist = {
 	type = 'Blacklist',
 	spells = {
-	-- Druid
-	-- Hunter
-	-- Mage
-	-- Paladin
-	-- Priest
-	-- Rogue
-	-- Shaman
-	-- Warlock
-	-- Warrior
-	-- Racial
+	-- General
+	[186403] = Defaults(), -- Sign of Battle
 	},
 }
 

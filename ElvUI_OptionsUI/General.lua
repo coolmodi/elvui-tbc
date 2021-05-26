@@ -140,7 +140,8 @@ General.args.blizzUIImprovements.args.general.args.durabilityScale = ACH:Range(L
 
 General.args.blizzUIImprovements.args.quest = ACH:Group(L["Quest"], nil, 4)
 General.args.blizzUIImprovements.args.quest.inline = true
-General.args.blizzUIImprovements.args.quest.args.questRewardMostValueIcon = ACH:Toggle(L["Mark Quest Reward"], L["Marks the most valuable quest reward with a gold coin."], 1)
+General.args.blizzUIImprovements.args.quest.args.objectiveTracker = ACH:Toggle(L["Objective Frame"], L["Enable"], 1)
+General.args.blizzUIImprovements.args.quest.args.questRewardMostValueIcon = ACH:Toggle(L["Mark Quest Reward"], L["Marks the most valuable quest reward with a gold coin."], 2)
 
 General.args.blizzUIImprovements.args.chatBubblesGroup = ACH:Group(L["Chat Bubbles"], nil, 16, nil, function(info) return E.private.general[info[#info]] end, function(info, value) E.private.general[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
 General.args.blizzUIImprovements.args.chatBubblesGroup.inline = true

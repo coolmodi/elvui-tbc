@@ -517,7 +517,7 @@ function S:FriendsFrame()
 
 	-- Raid Info Frame
 	_G.RaidInfoFrame:StripTextures(true)
-	_G.RaidInfoFrame:SetTemplate('Transparent')
+	_G.RaidInfoFrame:CreateBackdrop('Transparent')
 
 	_G.RaidInfoFrame:HookScript('OnShow', function()
 		if GetNumSubgroupMembers() > 0 then

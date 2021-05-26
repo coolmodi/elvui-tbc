@@ -8,9 +8,9 @@ function S:SkinArena()
 
 	local ArenaFrame = _G.ArenaFrame
 	ArenaFrame:StripTextures(true)
-	ArenaFrame:CreateBackdrop("Transparent")
-	ArenaFrame.backdrop:Point("TOPLEFT", 10, -12)
-	ArenaFrame.backdrop:Point("BOTTOMRIGHT", -32, 73)
+	ArenaFrame:CreateBackdrop('Transparent')
+	ArenaFrame.backdrop:Point('TOPLEFT', 10, -12)
+	ArenaFrame.backdrop:Point('BOTTOMRIGHT', -32, 73)
 
 	S:HandleButton(_G.ArenaFrameCancelButton)
 	S:HandleButton(_G.ArenaFrameJoinButton)

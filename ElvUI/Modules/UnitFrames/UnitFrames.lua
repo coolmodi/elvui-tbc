@@ -1459,17 +1459,16 @@ function UF:Initialize()
 		E.RaidUtility.Initialize = E.noop
 	end
 
-	--if E.private.unitframe.disabledBlizzardFrames.arena then
-	--	UF:SecureHook('UnitFrameThreatIndicator_Initialize')
+	if E.private.unitframe.disabledBlizzardFrames.arena then
 
-	--	Arena_LoadUI = E.noop -- Blizzard_ArenaUI should not be loaded, called on PLAYER_ENTERING_WORLD if in pvp or arena
+		Arena_LoadUI = E.noop -- Blizzard_ArenaUI should not be loaded, called on PLAYER_ENTERING_WORLD if in pvp or arena
 
-	--	if IsAddOnLoaded('Blizzard_ArenaUI') then
-	--		ElvUF:DisableBlizzard('arena')
-	--	else
-	--		UF:RegisterEvent('ADDON_LOADED')
-	--	end
-	--end
+		if IsAddOnLoaded('Blizzard_ArenaUI') then
+			ElvUF:DisableBlizzard('arena')
+		else
+			UF:RegisterEvent('ADDON_LOADED')
+		end
+	end
 
 	local ORD = E.oUF_RaidDebuffs or _G.oUF_RaidDebuffs
 	if not ORD then return end
