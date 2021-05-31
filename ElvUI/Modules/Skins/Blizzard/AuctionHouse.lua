@@ -21,6 +21,7 @@ function S:Blizzard_AuctionUI()
 		_G.BrowseBidButton,
 		_G.BrowseBuyoutButton,
 		_G.BrowseCloseButton,
+		_G.BrowseResetButton,
 		_G.BidBidButton,
 		_G.BidBuyoutButton,
 		_G.BidCloseButton,

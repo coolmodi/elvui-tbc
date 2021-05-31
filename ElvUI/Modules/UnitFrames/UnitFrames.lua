@@ -818,7 +818,7 @@ UF.SmartSettings = {
 
 function UF:HandleSmartVisibility(skip)
 	local sv = UF.SmartSettings
-	sv.raid.numGroups = 6
+	sv.raid.numGroups = 5
 
 	local _, instanceType, _, _, maxPlayers, _, _, instanceID = GetInstanceInfo()
 	if instanceType == 'raid' or instanceType == 'pvp' then
@@ -841,8 +841,8 @@ function UF:HandleSmartVisibility(skip)
 			end
 		end
 	else
-		sv.raid.visibility = '[@raid6,noexists][@raid31,exists] hide;show'
-		sv.raid40.visibility = '[@raid31,noexists] hide;show'
+		sv.raid.visibility = '[@raid6,noexists][@raid26,exists] hide;show'
+		sv.raid40.visibility = '[@raid26,noexists] hide;show'
 		sv.raid.enable = true
 		sv.raid40.enable = true
 	end

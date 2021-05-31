@@ -258,8 +258,6 @@ function NP:StylePlate(nameplate)
 	nameplate.ThreatIndicator = NP:Construct_ThreatIndicator(nameplate.RaisedElement)
 	nameplate.Highlight = NP:Construct_Highlight(nameplate)
 	nameplate.ClassPower = NP:Construct_ClassPower(nameplate)
-	nameplate.PvPIndicator = NP:Construct_PvPIndicator(nameplate.RaisedElement) -- Horde / Alliance / HonorInfo
-	nameplate.PvPClassificationIndicator = NP:Construct_PvPClassificationIndicator(nameplate.RaisedElement) -- Cart / Flag / Orb / Assassin Bounty
 	nameplate.Cutaway = NP:Construct_Cutaway(nameplate)
 
 	NP:Construct_Auras(nameplate)
@@ -296,8 +294,6 @@ function NP:UpdatePlate(nameplate, updateBase)
 		NP:Update_ClassPower(nameplate)
 		NP:Update_Auras(nameplate)
 		NP:Update_ClassificationIndicator(nameplate)
-		NP:Update_PvPIndicator(nameplate) -- Horde / Alliance / HonorInfo
-		NP:Update_PvPClassificationIndicator(nameplate) -- Cart / Flag / Orb / Assassin Bounty
 		NP:Update_TargetIndicator(nameplate)
 		NP:Update_ThreatIndicator(nameplate)
 		NP:Update_Cutaway(nameplate)
@@ -324,8 +320,6 @@ NP.DisableElements = {
 	'ThreatIndicator',
 	'TargetIndicator',
 	'ClassPower',
-	'PvPIndicator',
-	'PvPClassificationIndicator',
 	'Auras'
 }
 

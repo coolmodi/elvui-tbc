@@ -35,7 +35,7 @@ function S:PetStableFrame()
 
 	hooksecurefunc('PetStable_Update', function()
 		local hasPetUI, isHunterPet = HasPetUI()
-		if hasPetUI and not isHunterPet and UnitExists("pet") then return end
+		if hasPetUI and not isHunterPet and UnitExists('pet') then return end
 
 		local happiness = GetPetHappiness()
 		local texture = PetStablePetInfo:GetRegions()

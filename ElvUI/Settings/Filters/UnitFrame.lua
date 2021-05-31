@@ -37,6 +37,14 @@ G.unitframe.aurafilters.CCDebuffs = {
 		[9823]   = Defaults(2), -- Pounce(Rank 2)
 		[9827]   = Defaults(2), -- Pounce(Rank 3)
 		[27006]  = Defaults(2), -- Pounce(Rank 4)
+		[770]    = Defaults(5), -- Faerie Fire(Rank 1)
+		[778]    = Defaults(5), -- Faerie Fire(Rank 2)
+		[9749]   = Defaults(5), -- Faerie Fire(Rank 3)
+		[9907]   = Defaults(5), -- Faerie Fire(Rank 4)
+		[16857]  = Defaults(5), -- Faerie Fire(Feral)(Rank 1)
+		[17390]  = Defaults(5), -- Faerie Fire(Feral)(Rank 2)
+		[17391]  = Defaults(5), -- Faerie Fire(Feral)(Rank 3)
+		[17392]  = Defaults(5), -- Faerie Fire(Feral)(Rank 4)
 	-- Hunter
 		[1499]   = Defaults(3), -- Freezing Trap(Rank 1)
 		[14310]  = Defaults(3), -- Freezing Trap(Rank 2)
@@ -83,6 +91,7 @@ G.unitframe.aurafilters.CCDebuffs = {
 		[27071]  = Defaults(2), -- Frostbolt(Rank 12)
 		[27072]  = Defaults(2), -- Frostbolt(Rank 13)
 		[12355]  = Defaults(2), -- Impact
+		[12579]  = Defaults(5), -- Winter's Chill
 	-- Paladin
 		[853]    = Defaults(3), -- Hammer of Justice(Rank 1)
 		[5588]   = Defaults(3), -- Hammer of Justice(Rank 2)
@@ -147,24 +156,13 @@ G.unitframe.aurafilters.CCDebuffs = {
 		[20617]  = Defaults(2), -- Intercept(Rank 3)
 		[25272]  = Defaults(2), -- Intercept(Rank 4)
 		[25275]  = Defaults(2), -- Intercept(Rank 5)
-	-- Racial
-		[20549]  = Defaults(2), -- War Stomp
-	-- Sunder Armor, Faerie Fire, Faerie Fire(Feral)
 		[7386]   = Defaults(6), -- Sunder Armor(Rank 1)
 		[7405]   = Defaults(6), -- Sunder Armor(Rank 2)
 		[8380]   = Defaults(6), -- Sunder Armor(Rank 3)
 		[11596]  = Defaults(6), -- Sunder Armor(Rank 4)
 		[11597]  = Defaults(6), -- Sunder Armor(Rank 5)
-		[770]    = Defaults(5), -- Faerie Fire(Rank 1)
-		[778]    = Defaults(5), -- Faerie Fire(Rank 2)
-		[9749]   = Defaults(5), -- Faerie Fire(Rank 3)
-		[9907]   = Defaults(5), -- Faerie Fire(Rank 4)
-		[16857]  = Defaults(5), -- Faerie Fire(Feral)(Rank 1)
-		[17390]  = Defaults(5), -- Faerie Fire(Feral)(Rank 2)
-		[17391]  = Defaults(5), -- Faerie Fire(Feral)(Rank 3)
-		[17392]  = Defaults(5), -- Faerie Fire(Feral)(Rank 4)
-	-- Winter's Chill Debuff
-		[12579]  = Defaults(5), -- Winter's Chill
+	-- Racial
+		[20549]  = Defaults(2), -- War Stomp
 	},
 }
 
@@ -357,7 +355,7 @@ G.unitframe.aurafilters.Blacklist = {
 	type = 'Blacklist',
 	spells = {
 	-- General
-	[186403] = Defaults(), -- Sign of Battle
+		[186403] = Defaults(), -- Sign of Battle
 	},
 }
 
@@ -763,6 +761,7 @@ G.unitframe.aurawatch = {
 	},
 	PALADIN = {
 		[1044]    = UF:AuraWatch_AddSpell(1044, 'CENTER', {0.89, 0.45, 0}), -- Blessing of Freedom
+		[1038]    = UF:AuraWatch_AddSpell(1038, 'TOPLEFT', {0.11, 1.00, 0.45}, true), -- Blessing of Salvation
 		[6940]    = UF:AuraWatch_AddSpell(6940, 'CENTER', {0.89, 0.1, 0.1}), -- Blessing Sacrifice(Rank 1)
 		[20729]   = UF:AuraWatch_AddSpell(20729, 'CENTER', {0.89, 0.1, 0.1}), -- Blessing Sacrifice(Rank 2)
 		[27147]   = UF:AuraWatch_AddSpell(27147, 'CENTER', {0.89, 0.1, 0.1}), -- Blessing Sacrifice(Rank 3)
@@ -809,7 +808,6 @@ G.unitframe.aurawatch = {
 	SHAMAN = {
 		[29203]   = UF:AuraWatch_AddSpell(29203, 'TOPRIGHT', {0.7, 0.3, 0.7}), -- Healing Way
 		[16237]   = UF:AuraWatch_AddSpell(16237, 'RIGHT', {0.2, 0.2, 1}), -- Ancestral Fortitude
-		[25909]   = UF:AuraWatch_AddSpell(25909, 'TOP', {0.00, 0.00, 0.50}), -- Tranquil Air
 		[8185]    = UF:AuraWatch_AddSpell(8185, 'TOPLEFT', {0.05, 1.00, 0.50}), -- Fire Resistance Totem(Rank 1)
 		[10534]   = UF:AuraWatch_AddSpell(10534, 'TOPLEFT', {0.05, 1.00, 0.50}), -- Fire Resistance Totem(Rank 2)
 		[10535]   = UF:AuraWatch_AddSpell(10535, 'TOPLEFT', {0.05, 1.00, 0.50}), -- Fire Resistance Totem(Rank 3)
@@ -844,6 +842,9 @@ G.unitframe.aurawatch = {
 		[10405]   = UF:AuraWatch_AddSpell(10405, 'BOTTOMRIGHT', {0.00, 0.00, 0.26}), -- Stoneskin Totem(Rank 6)
 		[25508]   = UF:AuraWatch_AddSpell(25508, 'BOTTOMRIGHT', {0.00, 0.00, 0.26}), -- Stoneskin Totem(Rank 7)
 		[25509]   = UF:AuraWatch_AddSpell(25509, 'BOTTOMRIGHT', {0.00, 0.00, 0.26}), -- Stoneskin Totem(Rank 8)
+		[974]     = UF:AuraWatch_AddSpell(974, 'TOP', {0.08, 0.21, 0.43}, true), -- Earth Shield(Rank 1)
+		[32593]   = UF:AuraWatch_AddSpell(32593, 'TOP', {0.08, 0.21, 0.43}, true), -- Earth Shield(Rank 2)
+		[32594]   = UF:AuraWatch_AddSpell(32594, 'TOP', {0.08, 0.21, 0.43}, true), -- Earth Shield(Rank 3)
 	},
 	WARRIOR = {
 		[6673]    = UF:AuraWatch_AddSpell(6673, 'TOPLEFT', {0.2, 0.2, 1}, true), -- Battle Shout(Rank 1)
@@ -884,7 +885,7 @@ G.unitframe.aurawatch = {
 		[20905]   = UF:AuraWatch_AddSpell(20905, 'TOPLEFT', {0.89, 0.09, 0.05}), -- Trueshot Aura (Rank 2)
 		[20906]   = UF:AuraWatch_AddSpell(20906, 'TOPLEFT', {0.89, 0.09, 0.05}), -- Trueshot Aura (Rank 3)
 		[27066]   = UF:AuraWatch_AddSpell(27066, 'TOPLEFT', {0.89, 0.09, 0.05}), -- Trueshot Aura (Rank 4)
-		[13159]   = UF:AuraWatch_AddSpell(13159, 'BOTTOMLEFT', {0.00, 0.00, 0.85}), -- Aspect of the Pack
+		[13159]   = UF:AuraWatch_AddSpell(13159, 'BOTTOMLEFT', {0.00, 0.00, 0.85}, true), -- Aspect of the Pack
 		[20043]   = UF:AuraWatch_AddSpell(20043, 'BOTTOMLEFT', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 1)
 		[20190]   = UF:AuraWatch_AddSpell(20190, 'BOTTOMLEFT', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 2)
 		[27045]   = UF:AuraWatch_AddSpell(27045, 'BOTTOMLEFT', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 3)
@@ -996,7 +997,7 @@ G.unitframe.ChannelTicks = {
 	[8417]   = 5, -- Arcane Missiles(Rank 5)
 	[10211]  = 5, -- Arcane Missiles(Rank 6)
 	[10212]  = 5, -- Arcane Missiles(Rank 7)
-	[25345]   = 5, -- Arcane Missiles(Rank 8)
+	[25345]  = 5, -- Arcane Missiles(Rank 8)
 	[27075]  = 5, -- Arcane Missiles(Rank 9)
 	[38699]  = 5, -- Arcane Missiles(Rank 10)
 	[12051]  = 4, -- Evocation
@@ -1015,14 +1016,6 @@ G.unitframe.ChannelTicks = {
 	[14294]  = 6, -- Volley(Rank 2)
 	[14295]  = 6, -- Volley(Rank 3)
 	[27022]  = 6, -- Volley(Rank 4)
-	[136]    = 5, -- Mend Pet(Rank 1)
-	[3111]   = 5, -- Mend Pet(Rank 2)
-	[3661]   = 5, -- Mend Pet(Rank 3)
-	[3662]   = 5, -- Mend Pet(Rank 4)
-	[13542]  = 5, -- Mend Pet(Rank 5)
-	[13543]  = 5, -- Mend Pet(Rank 6)
-	[13544]  = 5, -- Mend Pet(Rank 7)
-	[27046]  = 5, -- Mend Pet(Rank 8)
 }
 
 -- Spells Effected By Talents

@@ -118,7 +118,7 @@ function DB:ExperienceBar_QuestXP()
 	QuestLogXP = 0
 	DB:ExperienceBar_CheckQuests(bar.db.questCurrentZoneOnly, bar.db.questCompletedOnly)
 
-	if QuestLogXP > 0 then
+	if bar.db.showQuestXP and QuestLogXP > 0 then
 		bar.Quest:SetMinMaxValues(0, XPToLevel)
 		bar.Quest:SetValue(min(CurrentXP + QuestLogXP, XPToLevel))
 		bar.Quest:SetStatusBarColor(DB.db.colors.quest.r, DB.db.colors.quest.g, DB.db.colors.quest.b, DB.db.colors.quest.a)
@@ -154,6 +154,11 @@ end
 
 function DB:ExperienceBar_OnClick() end
 
+function DB:ExperienceBar_XPGain()
+	DB:ExperienceBar_Update()
+	DB:ExperienceBar_QuestXP()
+end
+
 function DB:ExperienceBar_Toggle()
 	local bar = DB.StatusBars.Experience
 	bar.db = DB.db.experience
@@ -165,7 +170,7 @@ function DB:ExperienceBar_Toggle()
 	end
 
 	if bar.db.enable and not bar:ShouldHide() then
-		DB:RegisterEvent('PLAYER_XP_UPDATE', 'ExperienceBar_Update')
+		DB:RegisterEvent('PLAYER_XP_UPDATE', 'ExperienceBar_XPGain')
 		DB:RegisterEvent('DISABLE_XP_GAIN', 'ExperienceBar_Update')
 		DB:RegisterEvent('ENABLE_XP_GAIN', 'ExperienceBar_Update')
 		DB:RegisterEvent('UPDATE_EXHAUSTION', 'ExperienceBar_Update')

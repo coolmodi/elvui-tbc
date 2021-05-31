@@ -1649,7 +1649,7 @@ if Classic or TBC then
 	end
 
 	-- disable loss of control cooldown on classic
-	Action.GetLossOfControlCooldown = function(self) return 0,0 end
+	-- Action.GetLossOfControlCooldown = function(self) return 0,0 end
 end
 
 -----------------------------------------------------------

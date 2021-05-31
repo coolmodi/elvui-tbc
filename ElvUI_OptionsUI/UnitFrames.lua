@@ -2185,109 +2185,6 @@ local function GetOptionsTable_Power(hasDetatchOption, updateFunc, groupName, nu
 	return config
 end
 
-local function GetOptionsTable_PVPClassificationIndicator(updateFunc, groupName, numGroup)
-	local config = {
-		name = L["PvP Classification Indicator"],
-		desc = L["Cart / Flag / Orb / Assassin Bounty"],
-		type = 'group',
-		get = function(info)
-			return E.db.unitframe.units[groupName].pvpclassificationindicator[info[#info]]
-		end,
-		set = function(info, value)
-			E.db.unitframe.units[groupName].pvpclassificationindicator[info[#info]] = value
-			updateFunc(UF, groupName, numGroup)
-		end,
-		args = {
-			enable = {
-				order = 1,
-				name = L["Enable"],
-				type = 'toggle'
-			},
-			size = {
-				order = 2,
-				name = L["Size"],
-				type = 'range',
-				min = 5,
-				max = 100,
-				step = 1
-			},
-			position = {
-				order = 3,
-				type = 'select',
-				name = L["Icon Position"],
-				values = {
-					CENTER = 'CENTER',
-					TOPLEFT = 'TOPLEFT',
-					BOTTOMLEFT = 'BOTTOMLEFT',
-					TOPRIGHT = 'TOPRIGHT',
-					BOTTOMRIGHT = 'BOTTOMRIGHT'
-				}
-			},
-			xOffset = {
-				order = 4,
-				name = L["X-Offset"],
-				type = 'range',
-				min = -100,
-				max = 100,
-				step = 1
-			},
-			yOffset = {
-				order = 5,
-				name = L["Y-Offset"],
-				type = 'range',
-				min = -100,
-				max = 100,
-				step = 1
-			}
-		}
-	}
-
-	return config
-end
-
-local function GetOptionsTable_PVPIcon(updateFunc, groupName, numGroup)
-	local config = {
-		type = 'group',
-		name = L["PvP & Prestige Icon"],
-		get = function(info) return E.db.unitframe.units[groupName].pvpIcon[info[#info]] end,
-		set = function(info, value) E.db.unitframe.units[groupName].pvpIcon[info[#info]] = value; updateFunc(UF, groupName, numGroup) end,
-		args = {
-			enable = {
-				order = 2,
-				type = 'toggle',
-				name = L["Enable"],
-			},
-			scale = {
-				order = 3,
-				type = 'range',
-				name = L["Scale"],
-				isPercent = true,
-				min = 0.1, max = 2, step = 0.01,
-			},
-			anchorPoint = {
-				order = 5,
-				type = 'select',
-				name = L["Anchor Point"],
-				values = positionValues,
-			},
-			xOffset = {
-				order = 6,
-				type = 'range',
-				name = L["X-Offset"],
-				min = -100, max = 100, step = 1,
-			},
-			yOffset = {
-				order = 7,
-				type = 'range',
-				name = L["Y-Offset"],
-				min = -100, max = 100, step = 1,
-			},
-		},
-	}
-
-	return config
-end
-
 local function GetOptionsTable_RaidDebuff(updateFunc, groupName)
 	local config = {
 		type = 'group',
@@ -4251,7 +4148,6 @@ E.Options.args.unitframe.args.individualUnits.args.player = {
 		name = GetOptionsTable_Name(UF.CreateAndUpdateUF, 'player'),
 		portrait = GetOptionsTable_Portrait(UF.CreateAndUpdateUF, 'player'),
 		power = GetOptionsTable_Power(true, UF.CreateAndUpdateUF, 'player', nil, true),
-		pvpIcon = GetOptionsTable_PVPIcon(UF.CreateAndUpdateUF, 'player'),
 		raidicon = GetOptionsTable_RaidIcon(UF.CreateAndUpdateUF, 'player'),
 		raidRoleIcons = GetOptionsTable_RaidRoleIcons(UF.CreateAndUpdateUF, 'player'),
 		resurrectIcon = GetOptionsTable_ResurrectIcon(UF.CreateAndUpdateUF, 'player'),
@@ -4324,7 +4220,6 @@ E.Options.args.unitframe.args.individualUnits.args.target = {
 		name = GetOptionsTable_Name(UF.CreateAndUpdateUF, 'target'),
 		portrait = GetOptionsTable_Portrait(UF.CreateAndUpdateUF, 'target'),
 		power = GetOptionsTable_Power(true, UF.CreateAndUpdateUF, 'target', nil, true),
-		pvpIcon = GetOptionsTable_PVPIcon(UF.CreateAndUpdateUF, 'target'),
 		raidicon = GetOptionsTable_RaidIcon(UF.CreateAndUpdateUF, 'target'),
 		raidRoleIcons = GetOptionsTable_RaidRoleIcons(UF.CreateAndUpdateUF, 'target'),
 		resurrectIcon = GetOptionsTable_ResurrectIcon(UF.CreateAndUpdateUF, 'target'),
@@ -4775,7 +4670,6 @@ E.Options.args.unitframe.args.groupUnits.args.arena = {
 		debuffs = GetOptionsTable_Auras('debuffs', UF.CreateAndUpdateUFGroup, 'arena', 5),
 		castbar = GetOptionsTable_Castbar(false, UF.CreateAndUpdateUFGroup, 'arena', 5),
 		cutaway = GetOptionsTable_Cutaway(UF.CreateAndUpdateUFGroup, 'arena', 5),
-		pvpclassificationindicator = GetOptionsTable_PVPClassificationIndicator(UF.CreateAndUpdateUFGroup, 'arena', 5),
 	},
 }
 

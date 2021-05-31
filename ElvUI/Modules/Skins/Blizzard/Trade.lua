@@ -44,10 +44,10 @@ function S:TradeFrame()
 		_G[frame]:Kill()
 	end
 
-	for _, Frame in pairs({"TradePlayerItem", "TradeRecipientItem"}) do
+	for _, Frame in pairs({'TradePlayerItem', 'TradeRecipientItem'}) do
 		for i = 1, 7 do
 			local ItemBackground = _G[Frame..i]
-			local ItemButton = _G[Frame..i.."ItemButton"]
+			local ItemButton = _G[Frame..i..'ItemButton']
 
 			ItemBackground:StripTextures()
 			S:HandleItemButton(ItemButton)
@@ -56,8 +56,8 @@ function S:TradeFrame()
 			S:HandleIcon(ItemButton.icon, true)
 
 			ItemButton.backdrop:SetBackdropColor(0, 0, 0, 0)
-			ItemButton.backdrop:SetPoint("TOPLEFT", ItemButton, "TOPRIGHT", 4, 0)
-			ItemButton.backdrop:SetPoint("BOTTOMRIGHT", _G[Frame..i.."NameFrame"], "BOTTOMRIGHT", -1, 14)
+			ItemButton.backdrop:SetPoint('TOPLEFT', ItemButton, 'TOPRIGHT', 4, 0)
+			ItemButton.backdrop:SetPoint('BOTTOMRIGHT', _G[Frame..i..'NameFrame'], 'BOTTOMRIGHT', -1, 14)
 		end
 	end
 
@@ -70,7 +70,7 @@ function S:TradeFrame()
 		Highlight:StripTextures()
 	end
 
-	_G.TradeFrame:HookScript("OnShow", function()
+	_G.TradeFrame:HookScript('OnShow', function()
 		_G.TradePlayerItemsInset:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		_G.TradePlayerEnchantInset:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		_G.TradeRecipientItemsInset:SetBackdropBorderColor(unpack(E.media.bordercolor))

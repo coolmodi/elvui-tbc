@@ -134,6 +134,7 @@ P.databars.experience.hideAtMaxLevel = true
 P.databars.experience.showLevel = false
 P.databars.experience.width = 348
 P.databars.experience.fontSize = 12
+P.databars.experience.showQuestXP = true
 P.databars.experience.questCompletedOnly = false
 P.databars.experience.questCurrentZoneOnly = false
 
@@ -311,23 +312,6 @@ local NP_Power = {
 	},
 }
 
-local NP_PvPIcon = {
-	enable = false,
-	showBadge = true,
-	position = 'RIGHT',
-	size = 36,
-	xOffset = 0,
-	yOffset = 0,
-}
-
-local NP_PvPClassificationIndicator = {
-	enable = false,
-	position = 'TOPLEFT',
-	size = 36,
-	xOffset = 0,
-	yOffset = 0,
-}
-
 local NP_Portrait = {
 	enable = false,
 	position = 'RIGHT',
@@ -457,7 +441,6 @@ P.nameplates = {
 		ElvUI_Boss = {triggers = {enable = false}},
 		ElvUI_Target = {triggers = {enable = true}},
 		ElvUI_NonTarget = {triggers = {enable = true}},
-		ElvUI_Explosives = {triggers = {enable = true}},
 	},
 	colors = {
 		glowColor = {r = 1, g = 1, b = 1, a = 1},
@@ -578,8 +561,6 @@ P.nameplates = {
 			name = CopyTable(NP_Name),
 			portrait = CopyTable(NP_Portrait),
 			power = CopyTable(NP_Power),
-			pvpclassificationindicator = CopyTable(NP_PvPClassificationIndicator),
-			pvpindicator = CopyTable(NP_PvPIcon),
 			raidTargetIndicator = CopyTable(NP_RaidTargetIndicator),
 			title = CopyTable(NP_Title),
 		},
@@ -613,8 +594,6 @@ P.nameplates = {
 			name = CopyTable(NP_Name),
 			portrait = CopyTable(NP_Portrait),
 			power = CopyTable(NP_Power),
-			pvpclassificationindicator = CopyTable(NP_PvPClassificationIndicator),
-			pvpindicator = CopyTable(NP_PvPIcon),
 			raidTargetIndicator = CopyTable(NP_RaidTargetIndicator),
 			title = CopyTable(NP_Title),
 		},
@@ -632,8 +611,6 @@ P.nameplates = {
 			name = CopyTable(NP_Name),
 			portrait = CopyTable(NP_Portrait),
 			power = CopyTable(NP_Power),
-			pvpclassificationindicator = CopyTable(NP_PvPClassificationIndicator),
-			pvpindicator = CopyTable(NP_PvPIcon),
 			raidTargetIndicator = CopyTable(NP_RaidTargetIndicator),
 			title = CopyTable(NP_Title),
 		},
@@ -650,7 +627,6 @@ P.nameplates = {
 			name = CopyTable(NP_Name),
 			portrait = CopyTable(NP_Portrait),
 			power = CopyTable(NP_Power),
-			pvpindicator = CopyTable(NP_PvPIcon),
 			raidTargetIndicator = CopyTable(NP_RaidTargetIndicator),
 			title = CopyTable(NP_Title),
 		},
@@ -667,7 +643,6 @@ P.nameplates = {
 			name = CopyTable(NP_Name),
 			portrait = CopyTable(NP_Portrait),
 			power = CopyTable(NP_Power),
-			pvpindicator = CopyTable(NP_PvPIcon),
 			raidTargetIndicator = CopyTable(NP_RaidTargetIndicator),
 			title = CopyTable(NP_Title),
 		},
@@ -1165,14 +1140,6 @@ local UF_Power = {
 	strataAndLevel = CopyTable(UF_StrataAndLevel),
 }
 
-local UF_PvPClassificationIndicator = {
-	enable = true,
-	position = 'CENTER',
-	size = 36,
-	xOffset = 0,
-	yOffset = 0,
-}
-
 local UF_PVPIcon = {
 	anchorPoint = 'CENTER',
 	enable = false,
@@ -1298,11 +1265,9 @@ P.unitframe = {
 	colors = {
 		borderColor = {r = 0, g = 0, b = 0}, -- updated in E.Initialize
 		healthclass = false,
-		--healththreat = false,
 		healthselection = false,
 		forcehealthreaction = false,
 		powerclass = false,
-		--powerthreat = false,
 		powerselection = false,
 		colorhealthbyvalue = true,
 		customhealthbackdrop = false,
@@ -1619,7 +1584,6 @@ P.unitframe = {
 			portrait = CopyTable(UF_Portrait),
 			power = CopyTable(UF_Power),
 			raidicon = CopyTable(UF_RaidIcon),
-			pvpclassificationindicator = CopyTable(UF_PvPClassificationIndicator),
 		},
 		party = {
 			enable = true,

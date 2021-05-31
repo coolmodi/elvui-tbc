@@ -130,7 +130,6 @@ function S:LootFrame()
 	for i=1, _G.LOOTFRAME_NUMBUTTONS do
 		local button = _G['LootButton'..i]
 		_G['LootButton'..i..'NameFrame']:Hide()
-		--_G['LootButton'..i..'IconQuestTexture']:SetParent(E.HiddenFrame)
 		S:HandleItemButton(button, true)
 
 		button.IconBorder:SetTexture()

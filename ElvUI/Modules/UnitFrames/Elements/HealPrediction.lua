@@ -1,8 +1,7 @@
 local E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local UF = E:GetModule('UnitFrames')
-local HealComm = LibStub("LibHealComm-4.0")
+local HealComm = LibStub('LibHealComm-4.0')
 
---WoW API / Variables
 local CreateFrame = CreateFrame
 
 function UF.HealthClipFrame_HealComm(frame)
@@ -104,11 +103,11 @@ function UF:Configure_HealComm(frame)
 		myBar:SetOrientation(orientation)
 		afterBar:SetOrientation(orientation)
 
-		if orientation == "HORIZONTAL" then
+		if orientation == 'HORIZONTAL' then
 			local width = health:GetWidth()
 			width = (width > 0 and width) or health.WIDTH
-			local p1 = reverseFill and "RIGHT" or "LEFT"
-			local p2 = reverseFill and "LEFT" or "RIGHT"
+			local p1 = reverseFill and 'RIGHT' or 'LEFT'
+			local p2 = reverseFill and 'LEFT' or 'RIGHT'
 
 			beforeBar:Size(width, 0)
 			beforeBar:ClearAllPoints()
@@ -130,8 +129,8 @@ function UF:Configure_HealComm(frame)
 		else
 			local height = health:GetHeight()
 			height = (height > 0 and height) or health.HEIGHT
-			local p1 = reverseFill and "TOP" or "BOTTOM"
-			local p2 = reverseFill and "BOTTOM" or "TOP"
+			local p1 = reverseFill and 'TOP' or 'BOTTOM'
+			local p2 = reverseFill and 'BOTTOM' or 'TOP'
 
 			beforeBar:Size(0, height)
 			beforeBar:ClearAllPoints()

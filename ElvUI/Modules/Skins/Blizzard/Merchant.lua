@@ -50,19 +50,6 @@ function S:MerchantFrame()
 
 		money:ClearAllPoints()
 		money:Point('BOTTOMLEFT', button, 'BOTTOMRIGHT', 3, 0)
-
-		for j = 1, 2 do
-			local currencyItem = _G['MerchantItem'..i..'AltCurrencyFrameItem'..j]
-			local currencyIcon = _G['MerchantItem'..i..'AltCurrencyFrameItem'..j..'Texture']
-
-			currencyIcon.backdrop = CreateFrame('Frame', nil, currencyItem)
-			currencyIcon.backdrop:SetTemplate('Default')
-			currencyIcon.backdrop:SetFrameLevel(currencyItem:GetFrameLevel())
-			currencyIcon.backdrop:SetOutside(currencyIcon)
-
-			currencyIcon:SetTexCoord(unpack(E.TexCoords))
-			currencyIcon:SetParent(currencyIcon.backdrop)
-		end
 	end
 
 	_G.MerchantNameText:SetTextColor(1, 1, 1)

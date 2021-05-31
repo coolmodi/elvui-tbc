@@ -318,11 +318,9 @@ function S:Blizzard_Communities()
 	S:HandleButton(TicketManager.MaximizeButton)
 
 	-- Bottom Tabs
-	S:HandleTab(_G.CommunitiesFrameTab1)
-	S:HandleTab(_G.CommunitiesFrameTab2)
-	S:HandleTab(_G.CommunitiesFrameTab3)
-	S:HandleTab(_G.CommunitiesFrameTab4)
-	S:HandleTab(_G.CommunitiesFrameTab5)
+	for i = 1, 5 do
+		S:HandleTab(_G['CommunitiesFrameTab1'..i])
+	end
 end
 
 S:AddCallbackForAddon('Blizzard_Communities')

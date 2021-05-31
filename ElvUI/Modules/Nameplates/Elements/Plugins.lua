@@ -141,35 +141,6 @@ function NP:Update_Highlight(nameplate, nameOnlySF)
 	end
 end
 
-function NP:Construct_PVPRole(nameplate)
-	local texture = nameplate:CreateTexture(nameplate:GetName() .. 'PVPRole', 'OVERLAY', nil, 1)
-	texture:Size(40)
-	texture.HealerTexture = E.Media.Textures.Healer
-	texture.TankTexture = E.Media.Textures.Tank
-	texture:SetTexture(texture.HealerTexture)
-
-	texture:Hide()
-
-	return texture
-end
-
-function NP:Update_PVPRole(nameplate)
-	local db = NP:PlateDB(nameplate)
-
-	if (nameplate.frameType == 'FRIENDLY_PLAYER' or nameplate.frameType == 'ENEMY_PLAYER') and (db.markHealers or db.markTanks) then
-		if not nameplate:IsElementEnabled('PVPRole') then
-			nameplate:EnableElement('PVPRole')
-		end
-
-		nameplate.PVPRole.ShowHealers = db.markHealers
-		nameplate.PVPRole.ShowTanks = db.markTanks
-
-		nameplate.PVPRole:Point('RIGHT', nameplate.Health, 'LEFT', -6, 0)
-	elseif nameplate:IsElementEnabled('PVPRole') then
-		nameplate:DisableElement('PVPRole')
-	end
-end
-
 function NP:Update_Fader(nameplate)
 	local db = NP:PlateDB(nameplate)
 	local vis = db.visibility

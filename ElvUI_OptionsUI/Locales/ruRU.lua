@@ -1105,6 +1105,7 @@ L["Show New Item Glow"] = "Свечение новых предметов"
 L["Show Over Absorbs"] = "Показывать \"лишнее\" поглощение"
 L["Show PvP Badge Indicator if available"] = "Показывать значок ранга PvP, если доступен"
 L["Show Quality Color"] = "Показывать цвет качества"
+L["Show QuestXP"] = true
 L["Show Special Bags Color"] = "Показывать цвета специальных сумок"
 L["Show the castbar icon desaturated if a spell is not interruptible."] = "Показывать иконку полосы заклинания обесцвеченой, если заклинание нельзя прервать."
 L["Show Title"] = "Звание"

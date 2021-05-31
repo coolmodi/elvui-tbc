@@ -412,8 +412,6 @@ function B:UpdateSlot(frame, bagID, slotID)
 
 	if B.db.specialtyColors and professionColors then
 		r, g, b, a = unpack(professionColors)
-	--elseif questId and not isActiveQuest then
-	--	r, g, b, a = unpack(B.QuestColors.questStarter)
 	elseif slot.isQuestItem then
 		r, g, b, a = unpack(B.QuestColors.questItem)
 	elseif not link or B.db.qualityColors and slot.rarity and slot.rarity <= LE_ITEM_QUALITY_COMMON then

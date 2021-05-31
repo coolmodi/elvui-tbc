@@ -255,7 +255,7 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 	ElvUF.Tags.Methods[format('power:%s', tagTextFormat)] = function(unit)
 		local powerType = UnitPowerType(unit)
 		local min = UnitPower(unit, powerType)
-		if min ~= 0 and tagTextFormat ~= 'deficit' then
+		if min ~= 0 then
 			return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, powerType))
 		end
 	end
@@ -263,7 +263,7 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 	ElvUF.Tags.Events[format('mana:%s', tagTextFormat)] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER'
 	ElvUF.Tags.Methods[format('mana:%s', tagTextFormat)] = function(unit)
 		local min = UnitPower(unit, SPELL_POWER_MANA)
-		if min ~= 0 and tagTextFormat ~= 'deficit' then
+		if min ~= 0 then
 			return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, SPELL_POWER_MANA))
 		end
 	end
@@ -940,6 +940,29 @@ ElvUF.Tags.Methods['ElvUI-Users'] = function(unit)
 	end
 end
 
+local classIcons = {
+	WARRIOR = '0:64:0:64',
+	MAGE = '64:128:0:64',
+	ROGUE = '128:196:0:64',
+	DRUID = '196:256:0:64',
+	HUNTER = '0:64:64:128',
+	SHAMAN = '64:128:64:128',
+	PRIEST = '128:196:64:128',
+	WARLOCK = '196:256:64:128',
+	PALADIN = '0:64:128:196',
+}
+
+ElvUF.Tags.Events['class:icon'] = 'PLAYER_TARGET_CHANGED'
+ElvUF.Tags.Methods['class:icon'] = function(unit)
+	if UnitIsPlayer(unit) then
+		local _, class = UnitClass(unit)
+		local icon = classIcons[class]
+		if icon then
+			return format('|TInterface\\WorldStateFrame\\ICONS-CLASSES:32:32:0:0:256:256:%s|t', icon)
+		end
+	end
+end
+
 ElvUF.Tags.Events['creature'] = ''
 
 E.TagInfo = {
@@ -1024,6 +1047,7 @@ E.TagInfo = {
 	--Miscellaneous
 	['affix'] = { category = 'Miscellaneous', description = "Displays low level critter mobs" },
 	['class'] = { category = 'Miscellaneous', description = "Displays the class of the unit, if that unit is a player" },
+	['class:icon'] = { category = 'Miscellaneous', description = "Displays the class icon of the unit, if that unit is a player" },
 	['race'] = { category = 'Miscellaneous', description = "Displays the race" },
 	['smartclass'] = { category = 'Miscellaneous', description = "Displays the player's class or creature's type" },
 	--Names

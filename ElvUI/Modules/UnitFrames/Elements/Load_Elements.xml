@@ -18,8 +18,6 @@
 	<Script file='Portrait.lua'/>
 	<Script file='Power.lua'/>
 	<Script file='PowerPrediction.lua'/>
-	<Script file='PVPIcon.lua'/>
-	<Script file='PVPClassificationIndicator.lua'/>
 	<Script file='PVPIndicator.lua'/>
 	<Script file='RaidDebuffs.lua'/>
 	<Script file='RaidIcon.lua'/>

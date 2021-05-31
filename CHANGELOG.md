@@ -1,4 +1,14 @@
-### Version 2.08 [ ETA: 🍨 ]
+### Version 2.09 [ ETA: 🍨 ]
+___
+### Version 2.08 [30-05-2021]
+**• Added an option to enable/disable QuestXP for the Experience bar**  
+**• Added Blessing of Salvation to Aura Indicators**  
+**• Added class:icon tag**  
+**• Added Earth Shield to Aura Indicators**  
+**• Fixed :deficit tags**  
+**• Fixed LossOfControl ActionBar swipe**  
+**• Fixed QuestXP not updating in the Experience bar**  
+**• Updated some Skins**  
 ___
 ### Version 2.07 [25-05-2021]
 **• Added an option to enable/disable the ElvUI Quest Objective Frame Mover**  

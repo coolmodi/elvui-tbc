@@ -1110,6 +1110,7 @@ L["Show New Item Glow"] = "新物品发光"
 L["Show Over Absorbs"] = "显示过量吸收"
 L["Show PvP Badge Indicator if available"] = "可用时显示PvP头衔指示器"
 L["Show Quality Color"] = "显示稀有度图标"
+L["Show QuestXP"] = true
 L["Show Special Bags Color"] = "显示特殊背包颜色"
 L["Show the castbar icon desaturated if a spell is not interruptible."] = "在法术不可被打断时显示褪色的图标"
 L["Show Title"] = "显示头衔"

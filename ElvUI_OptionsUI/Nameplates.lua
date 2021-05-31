@@ -4326,68 +4326,6 @@ local function GetUnitSettings(unit, name)
 					}
 				}
 			},
-			pvpindicator = {
-				order = 10,
-				name = L["PvP Indicator"],
-				desc = L["Horde / Alliance / Honor Info"],
-				type = 'group',
-				get = function(info)
-					return E.db.nameplates.units[unit].pvpindicator[info[#info]]
-				end,
-				set = function(info, value)
-					E.db.nameplates.units[unit].pvpindicator[info[#info]] = value
-					NP:ConfigureAll()
-				end,
-				args = {
-					enable = {
-						order = 1,
-						name = L["Enable"],
-						type = 'toggle'
-					},
-					showBadge = {
-						order = 2,
-						name = L["Show Badge"],
-						desc = L["Show PvP Badge Indicator if available"],
-						type = 'toggle'
-					},
-					size = {
-						order = 3,
-						name = L["Size"],
-						type = 'range',
-						min = 12,
-						max = 64,
-						step = 1
-					},
-					position = {
-						order = 4,
-						type = 'select',
-						name = L["Icon Position"],
-						values = {
-							LEFT = L["Left"],
-							RIGHT = L["Right"],
-							TOP = L["Top"],
-							BOTTOM = L["Bottom"],
-							CENTER = L["Center"]
-						}
-					},
-					xOffset = {
-						order = 5,
-						name = L["X-Offset"],
-						type = 'range',
-						min = -100,
-						max = 100,
-						step = 1
-					},
-					yOffset = {
-						order = 6,
-						name = L["Y-Offset"],
-						type = 'range',
-						min = -100,
-						max = 100,
-						step = 1
-					}
-				}
-			},
 			raidTargetIndicator = {
 				order = 11,
 				name = L["Target Marker Icon"],
@@ -4694,62 +4632,6 @@ local function GetUnitSettings(unit, name)
 			order = 2,
 			name = L["Class Icon"],
 			type = 'toggle'
-		}
-		group.args.pvpclassificationindicator = {
-			order = 30,
-			name = L["PvP Classification Indicator"],
-			desc = L["Cart / Flag / Orb / Assassin Bounty"],
-			type = 'group',
-			get = function(info)
-				return E.db.nameplates.units[unit].pvpclassificationindicator[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.nameplates.units[unit].pvpclassificationindicator[info[#info]] = value
-				NP:ConfigureAll()
-			end,
-			args = {
-				enable = {
-					order = 1,
-					name = L["Enable"],
-					type = 'toggle'
-				},
-				size = {
-					order = 2,
-					name = L["Size"],
-					type = 'range',
-					min = 5,
-					max = 100,
-					step = 1
-				},
-				position = {
-					order = 3,
-					type = 'select',
-					name = L["Icon Position"],
-					values = {
-						CENTER = 'CENTER',
-						TOPLEFT = 'TOPLEFT',
-						BOTTOMLEFT = 'BOTTOMLEFT',
-						TOPRIGHT = 'TOPRIGHT',
-						BOTTOMRIGHT = 'BOTTOMRIGHT'
-					}
-				},
-				xOffset = {
-					order = 4,
-					name = L["X-Offset"],
-					type = 'range',
-					min = -100,
-					max = 100,
-					step = 1
-				},
-				yOffset = {
-					order = 5,
-					name = L["Y-Offset"],
-					type = 'range',
-					min = -100,
-					max = 100,
-					step = 1
-				}
-			}
 		}
 	end
 

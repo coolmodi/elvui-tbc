@@ -14,8 +14,8 @@ local SharedOptions = {
 	mouseover = ACH:Toggle(L["Mouseover"], nil, 3),
 	clickThrough = ACH:Toggle(L["Click Through"], nil, 4),
 	showBubbles = ACH:Toggle(L["Show Bubbles"], nil, 5),
-	sizeGroup = ACH:Group(L["Size"], nil, -4),
-	conditionGroup = ACH:MultiSelect(L["Conditions"], nil, -3),
+	sizeGroup = ACH:Group(L["Size"], nil, -5),
+	conditionGroup = ACH:MultiSelect(L["Conditions"], nil, -4),
 	strataAndLevel = ACH:Group(L["Strata and Level"], nil, -2),
 	fontGroup = ACH:Group(L["Fonts"], nil, -1)
 }
@@ -63,19 +63,23 @@ for i = 1, 8 do
 end
 DataBars.args.colorGroup.args.factionColors.args["9"] = ACH:Color(L["Paragon"], nil, 9, true)
 
-DataBars.args.experience = ACH:Group(L["Experience"], nil, 1, nil, function(info) return DB.db.experience[info[#info]] end, function(info, value) DB.db.experience[info[#info]] = value DB:ExperienceBar_Update() DB:ExperienceBar_QuestXP() DB:UpdateAll() end)
+DataBars.args.experience = ACH:Group(L["Experience"], nil, 1, nil, function(info) return DB.db.experience[info[#info]] end, function(info, value) DB.db.experience[info[#info]] = value DB:ExperienceBar_Update() DB:UpdateAll() end)
 DataBars.args.experience.args = CopyTable(SharedOptions)
 DataBars.args.experience.args.showLevel = ACH:Toggle(L["Level"], nil, 6)
 DataBars.args.experience.args.enable.set = function(info, value) DB.db.experience[info[#info]] = value DB:ExperienceBar_Toggle() DB:UpdateAll() end
 DataBars.args.experience.args.textFormat.set = function(info, value) DB.db.experience[info[#info]] = value DB:ExperienceBar_Update() end
 DataBars.args.experience.args.conditionGroup.get = function(_, key) return DB.db.experience[key] end
-DataBars.args.experience.args.conditionGroup.set = function(_, key, value) DB.db.experience[key] = value DB:ExperienceBar_Update() DB:ExperienceBar_QuestXP() DB:UpdateAll() end
+DataBars.args.experience.args.conditionGroup.set = function(_, key, value) DB.db.experience[key] = value DB:ExperienceBar_Update() DB:UpdateAll() end
 DataBars.args.experience.args.conditionGroup.values = {
-	questCurrentZoneOnly = L["Quests in Current Zone Only"],
-	questCompletedOnly = L["Completed Quests Only"],
 	hideAtMaxLevel = L["Hide At Max Level"],
 	hideInCombat = L["Hide In Combat"],
 }
+
+DataBars.args.experience.args.questGroup = ACH:Group(L["Quests"], nil, -3, nil, function(info) return DB.db.experience[info[#info]] end, function(info, value) DB.db.experience[info[#info]] = value DB:ExperienceBar_QuestXP() DB:UpdateAll() end)
+DataBars.args.experience.args.questGroup.inline = true
+DataBars.args.experience.args.questGroup.args.showQuestXP = ACH:Toggle(L["Show QuestXP"], nil, 1)
+DataBars.args.experience.args.questGroup.args.questCompletedOnly = ACH:Toggle(L["Completed Quests Only"], nil, 2, nil, nil, nil, nil, nil, function() return not DB.db.experience.showQuestXP end)
+DataBars.args.experience.args.questGroup.args.questsCurrentZoneOnly = ACH:Toggle(L["Quests in Current Zone Only"], nil, 3, nil, nil, nil, nil, nil, function() return not DB.db.experience.showQuestXP end)
 
 E.Options.args.databars.args.petExperience = ACH:Group(L["Pet Experience"], nil, 2, nil, function(info) return DB.db.petExperience[info[#info]] end, function(info, value) DB.db.petExperience[info[#info]] = value DB:PetExperienceBar_Update() DB:UpdateAll() end, nil, E.myclass ~= 'HUNTER')
 E.Options.args.databars.args.petExperience.args = CopyTable(SharedOptions)

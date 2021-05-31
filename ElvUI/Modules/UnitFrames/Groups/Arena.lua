@@ -34,7 +34,6 @@ function UF:Construct_ArenaFrames(frame)
 		frame.TargetGlow = UF:Construct_TargetGlow(frame)
 		frame.FocusGlow = UF:Construct_FocusGlow(frame)
 
-		frame.PvPClassificationIndicator = UF:Construct_PvPClassificationIndicator(frame) -- Cart / Flag / Orb / Assassin Bounty
 		frame.Fader = UF:Construct_Fader()
 		frame:SetAttribute('type2', 'focus')
 
@@ -103,7 +102,6 @@ function UF:Update_ArenaFrames(frame, db)
 	UF:Configure_HealComm(frame)
 	UF:Configure_Cutaway(frame)
 	UF:Configure_CustomTexts(frame)
-	UF:Configure_PvPClassificationIndicator(frame)
 
 	frame:ClearAllPoints()
 	if frame.index == 1 then
