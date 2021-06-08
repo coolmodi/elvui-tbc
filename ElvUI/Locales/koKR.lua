@@ -142,8 +142,8 @@ L["Installation Complete"] = "설치 완료"
 L["Invalid Target"] = "잘못된 대상"
 L["It appears one of your AddOns have disabled the AddOn Blizzard_CompactRaidFrames. This can cause errors and other issues. The AddOn will now be re-enabled."] = "설치된 애드온 중 하나가 정상 로드되지 않았습니다. 에러가 날 확률이 높아 리로드합니다."
 L["Item level: %.2f"] = "아이템 레벨: %.2f"
-L["KEY_ALT"] = "A+"
-L["KEY_CTRL"] = "C+"
+L["KEY_ALT"] = "A"
+L["KEY_CTRL"] = "C"
 L["KEY_DELETE"] = "Del"
 L["KEY_HOME"] = "Hm"
 L["KEY_INSERT"] = "Ins"
@@ -153,10 +153,11 @@ L["KEY_MOUSEWHEELUP"] = "W▲"
 L["KEY_NUMPAD"] = "N"
 L["KEY_PAGEDOWN"] = "P▼"
 L["KEY_PAGEUP"] = "P▲"
-L["KEY_SHIFT"] = "Sh+"
+L["KEY_SHIFT"] = "S"
 L["KEY_SPACE"] = "Spc"
 L["Key Binds"] = "단축키 지정"
 L["Key"] = "단축키"
+L["Level"] = "레벨"
 L["LOGIN_MSG"] = ("*ElvUI TBC|r 버전 *%s|r이 설치 되었습니다.\n메뉴 호출은*/ec|r.기술 지원은 https://www.tukui.org \n또는,*Discord :|r https://discord.gg/xFWcfgE"):gsub('*', E.InfoColor)
 L["LOGIN_MSG_HELP"] = ("*ElvUI|r 명령어 목록은 */ehelp|r를 입력하면 됩니다."):gsub('*', E.InfoColor)
 L["Layout Set"] = "레이아웃 설정"
@@ -358,7 +359,7 @@ L["EHELP_COMMANDS"] = ([=[다음은 모든 중요한 *ElvUI|r 명령 목록입�
 ----------------TagInfo Locales----------------
 --[[
 	tagName = 태그 이름
-	category = 카테고리 
+	category = 카테고리
 	description = 설명
 	order = 이것은 선택 사항입니다. 이름이 아닌 순서로 태그를 정렬하는 데 사용됩니다. +10은 규칙이 아닙니다. 처음 10 개의 슬롯을 예약합니다.
 ]]
@@ -453,11 +454,11 @@ L["Displays the max amount of mana the unit can have"] = "최대 마나값 만�
 --Miscellaneous--
 --Names--
 L['Names'] = 'Names:이름'
-L["|cFF666666[1/5]|r White name text, missing hp red"] = "|cFF666666[1/5]|r 흰색 이름 텍스트, hp 빨간색 누락" -- OptionsUI>Tags.lua 
-L["|cFF666666[2/5]|r Class color name text, missing hp red"] = "|cFF666666[2/5]|r 클래스 색상 이름 텍스트, hp 빨간색 누락" -- OptionsUI>Tags.lua 
-L["|cFF666666[3/5]|r Class color name text, missing hp based on hex code"] = "|cFF666666[3/5]|r 클래스 색상 이름 텍스트, 16 진수 코드에 따라 hp 누락" -- OptionsUI>Tags.lua 
-L["|cFF666666[4/5]|r Name text based on hex code, missing hp red"] = "|cFF666666[4/5]|r 16 진수 코드에 기반한 이름 텍스트, hp 빨간색 누락" -- OptionsUI>Tags.lua 
-L["|cFF666666[5/5]|r Name text based on hex code, missing hp class color"] = "|cFF666666[5/5]|r 16 진수 코드에 기반한 이름 텍스트, hp 클래스 색상 누락" -- OptionsUI>Tags.lua 
+L["|cFF666666[1/5]|r White name text, missing hp red"] = "|cFF666666[1/5]|r 흰색 이름 텍스트, hp 빨간색 누락" -- OptionsUI>Tags.lua
+L["|cFF666666[2/5]|r Class color name text, missing hp red"] = "|cFF666666[2/5]|r 클래스 색상 이름 텍스트, hp 빨간색 누락" -- OptionsUI>Tags.lua
+L["|cFF666666[3/5]|r Class color name text, missing hp based on hex code"] = "|cFF666666[3/5]|r 클래스 색상 이름 텍스트, 16 진수 코드에 따라 hp 누락" -- OptionsUI>Tags.lua
+L["|cFF666666[4/5]|r Name text based on hex code, missing hp red"] = "|cFF666666[4/5]|r 16 진수 코드에 기반한 이름 텍스트, hp 빨간색 누락" -- OptionsUI>Tags.lua
+L["|cFF666666[5/5]|r Name text based on hex code, missing hp class color"] = "|cFF666666[5/5]|r 16 진수 코드에 기반한 이름 텍스트, hp 클래스 색상 누락" -- OptionsUI>Tags.lua
 L["Displays the name of the unit with abbreviation (limited to 20 letters)"] = "약어로 단위 이름을 표시.(한글 20자 제한)."
 L["Displays the name of the unit with abbreviation (limited to 15 letters)"] = "약어로 단위 이름을 표시.(한글 15자 제한)."
 L["Displays the name of the unit with abbreviation (limited to 10 letters)"] = "약어로 단위 이름을 표시.(한글 10자 제한)."

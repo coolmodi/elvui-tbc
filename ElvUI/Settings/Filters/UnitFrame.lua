@@ -91,7 +91,6 @@ G.unitframe.aurafilters.CCDebuffs = {
 		[27071]  = Defaults(2), -- Frostbolt(Rank 12)
 		[27072]  = Defaults(2), -- Frostbolt(Rank 13)
 		[12355]  = Defaults(2), -- Impact
-		[12579]  = Defaults(5), -- Winter's Chill
 	-- Paladin
 		[853]    = Defaults(3), -- Hammer of Justice(Rank 1)
 		[5588]   = Defaults(3), -- Hammer of Justice(Rank 2)
@@ -144,6 +143,7 @@ G.unitframe.aurafilters.CCDebuffs = {
 		[18093]  = Defaults(2), -- Pyroclasm
 		[710]    = Defaults(2), -- Banish(Rank 1)
 		[18647]  = Defaults(2), -- Banish(Rank 2)
+		[30413]  = Defaults(2), -- Shadowfury
 	-- Warrior
 		[5246]   = Defaults(4), -- Intimidating Shout
 		[1715]   = Defaults(2), -- Hamstring(Rank 1)
@@ -885,10 +885,10 @@ G.unitframe.aurawatch = {
 		[20905]   = UF:AuraWatch_AddSpell(20905, 'TOPLEFT', {0.89, 0.09, 0.05}), -- Trueshot Aura (Rank 2)
 		[20906]   = UF:AuraWatch_AddSpell(20906, 'TOPLEFT', {0.89, 0.09, 0.05}), -- Trueshot Aura (Rank 3)
 		[27066]   = UF:AuraWatch_AddSpell(27066, 'TOPLEFT', {0.89, 0.09, 0.05}), -- Trueshot Aura (Rank 4)
-		[13159]   = UF:AuraWatch_AddSpell(13159, 'BOTTOMLEFT', {0.00, 0.00, 0.85}, true), -- Aspect of the Pack
-		[20043]   = UF:AuraWatch_AddSpell(20043, 'BOTTOMLEFT', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 1)
-		[20190]   = UF:AuraWatch_AddSpell(20190, 'BOTTOMLEFT', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 2)
-		[27045]   = UF:AuraWatch_AddSpell(27045, 'BOTTOMLEFT', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 3)
+		[13159]   = UF:AuraWatch_AddSpell(13159, 'TOP', {0.00, 0.00, 0.85}, true), -- Aspect of the Pack
+		[20043]   = UF:AuraWatch_AddSpell(20043, 'TOP', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 1)
+		[20190]   = UF:AuraWatch_AddSpell(20190, 'TOP', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 2)
+		[27045]   = UF:AuraWatch_AddSpell(27045, 'TOP', {0.33, 0.93, 0.79}), -- Aspect of the Wild (Rank 3)
 	},
 	WARLOCK = {
 		[5597]    = UF:AuraWatch_AddSpell(5597, 'TOPLEFT', {0.89, 0.09, 0.05}, true), -- Unending Breath

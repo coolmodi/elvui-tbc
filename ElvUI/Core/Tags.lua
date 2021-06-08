@@ -582,6 +582,12 @@ ElvUF.Tags.Methods['threat:current'] = function(unit)
 	end
 end
 
+if not GetThreatStatusColor then
+	function GetThreatStatusColor(status)
+		return unpack(ElvUF.colors.threat[status])
+	end
+end
+
 ElvUF.Tags.Events['threatcolor'] = 'UNIT_THREAT_LIST_UPDATE UNIT_THREAT_SITUATION_UPDATE GROUP_ROSTER_UPDATE'
 ElvUF.Tags.Methods['threatcolor'] = function(unit)
 	local _, status = UnitDetailedThreatSituation('player', unit)

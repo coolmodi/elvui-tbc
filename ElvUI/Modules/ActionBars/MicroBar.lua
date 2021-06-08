@@ -90,10 +90,12 @@ function AB:HandleMicroButton(button)
 end
 
 function AB:MainMenuMicroButton_SetNormal()
+	_G.MainMenuBarPerformanceBar:ClearAllPoints()
 	_G.MainMenuBarPerformanceBar:Point('TOPLEFT', _G.MainMenuMicroButton, 'TOPLEFT', 9, -36)
 end
 
 function AB:MainMenuMicroButton_SetPushed()
+	_G.MainMenuBarPerformanceBar:ClearAllPoints()
 	_G.MainMenuBarPerformanceBar:Point('TOPLEFT', _G.MainMenuMicroButton, 'TOPLEFT', 8, -37)
 end
 
@@ -205,7 +207,7 @@ function AB:SetupMicroBar()
 		AB:HandleMicroButton(_G[x])
 	end
 
-	_G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton.backdrop)
+	-- _G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton.backdrop)
 
 	AB:SecureHook('UpdateMicroButtonsParent')
 	AB:SecureHook('MoveMicroButtons', 'UpdateMicroPositionDimensions')

@@ -683,19 +683,28 @@ function B:UpdateGoldText()
 	B.BagFrame.goldText:SetText(E:FormatMoney(GetMoney(), E.db.bags.moneyFormat, not E.db.bags.moneyCoins))
 end
 
+-- Those items should not be deleted by Vendor / Delete Grays
+B.Grays = {
+	[32888] = "The Relics of Terokk",
+	[28664] = "Nitrin's Instructions",
+}
+
 function B:GetGraysValue()
 	local value = 0
 
 	for bag = 0, 4 do
 		for slot = 1, GetContainerNumSlots(bag) do
-			local itemID = GetContainerItemID(bag, slot)
-			if itemID then
-				local _, _, rarity, _, _, itype, _, _, _, _, itemPrice = GetItemInfo(itemID)
-				if itemPrice then
-					local stackCount = select(2, GetContainerItemInfo(bag, slot)) or 1
-					local stackPrice = itemPrice * stackCount
-					if (rarity and rarity == 0) and (itype and itype ~= 'Quest') and (stackPrice > 0) then
-						value = value + stackPrice
+			local link = GetContainerItemLink(bag, slot)
+			if link then
+				local itemID = GetContainerItemID(bag, slot)
+				if not B.Grays[itemID] then
+					local _, _, rarity, _, _, itype, _, _, _, _, itemPrice = GetItemInfo(link)
+					if rarity and rarity == 0 and (itype and itype ~= 'Quest') and (itemPrice and itemPrice > 0) then
+						local stackCount = select(2, GetContainerItemInfo(bag, slot)) or 1
+						local stackPrice = itemPrice * stackCount
+						if stackPrice > 0 then
+							value = value + stackPrice
+						end
 					end
 				end
 			end
@@ -707,6 +716,7 @@ end
 
 function B:VendorGrays(delete)
 	if B.SellFrame:IsShown() then return end
+
 	if (not _G.MerchantFrame or not _G.MerchantFrame:IsShown()) and not delete then
 		E:Print(L["You must be at a vendor."])
 		return
@@ -714,20 +724,22 @@ function B:VendorGrays(delete)
 
 	for bag = 0, 4, 1 do
 		for slot = 1, GetContainerNumSlots(bag), 1 do
-			local itemID = GetContainerItemID(bag, slot)
-			if itemID then
-				local _, link, rarity, _, _, itype, _, _, _, _, itemPrice = GetItemInfo(itemID)
-
-				if (rarity and rarity == 0) and (itype and itype ~= 'Quest') and (itemPrice and itemPrice > 0) then
-					tinsert(B.SellFrame.Info.itemList, {bag,slot,itemPrice,link})
+			local link = GetContainerItemLink(bag, slot)
+			if link then
+				local itemID = GetContainerItemID(bag, slot)
+				if not B.Grays[itemID] then
+					local _, _, rarity, _, _, itype, _, _, _, _, itemPrice = GetItemInfo(link)
+					if rarity and rarity == 0 and (itype and itype ~= 'Quest') and (itemPrice and itemPrice > 0) then
+						tinsert(B.SellFrame.Info.itemList, {bag, slot, itemPrice, link, itemID})
+					end
 				end
 			end
 		end
 	end
 
-	if (not B.SellFrame.Info.itemList) then return end
-	if (tmaxn(B.SellFrame.Info.itemList) < 1) then return end
-	--Resetting stuff
+	if not B.SellFrame.Info.itemList or tmaxn(B.SellFrame.Info.itemList) < 1 then return end
+
+	-- Resetting stuff
 	B.SellFrame.Info.delete = delete or false
 	B.SellFrame.Info.ProgressTimer = 0
 	B.SellFrame.Info.SellInterval = 0.2
@@ -739,15 +751,16 @@ function B:VendorGrays(delete)
 	B.SellFrame.statusbar:SetMinMaxValues(0, B.SellFrame.Info.ProgressMax)
 	B.SellFrame.statusbar.ValueText:SetText('0 / '..B.SellFrame.Info.ProgressMax)
 
-	--Time to sell
-	B.SellFrame:Show()
+	if not delete then -- Time to sell
+		B.SellFrame:Show()
+	end
 end
 
 function B:VendorGrayCheck()
 	local value = B:GetGraysValue()
 
 	if value == 0 then
-		E:Print(L['No gray items to delete.'])
+		E:Print(L["No gray items to delete."])
 	elseif not _G.MerchantFrame or not _G.MerchantFrame:IsShown() then
 		E.PopupDialogs.DELETE_GRAYS.Money = value
 		E:StaticPopup_Show('DELETE_GRAYS')

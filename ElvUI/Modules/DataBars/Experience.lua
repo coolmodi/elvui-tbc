@@ -102,7 +102,7 @@ function DB:ExperienceBar_Update()
 		end
 
 		if bar.db.showLevel then
-			displayString = format('%s %s : %s', L['Level'], E.mylevel, displayString)
+			displayString = format('%s %s : %s', L["Level"], E.mylevel, displayString)
 		end
 
 		bar.Rested:SetShown(isRested)
