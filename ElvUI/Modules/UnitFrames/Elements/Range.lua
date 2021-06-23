@@ -5,7 +5,6 @@ local RangeCheck = E.Libs.RangeCheck
 local UnitCanAttack = UnitCanAttack
 local UnitInRange = UnitInRange
 local UnitIsConnected = UnitIsConnected
-local UnitIsPlayer = UnitIsPlayer
 local UnitIsUnit = UnitIsUnit
 
 local function friendlyIsInRange(realUnit)

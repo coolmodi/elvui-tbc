@@ -553,6 +553,7 @@ function B:Layout(isBank)
 	local lastButton, lastRowButton, newBag
 	local numContainerSlots = isBank and 8 or 6
 
+	f:SetFrameStrata(E.db.bags.strata or 'HIGH')
 	f.totalSlots = 0
 	f.holderFrame:Width(holderWidth)
 	f.ContainerHolder:Size(((buttonSize + buttonSpacing) * numContainerSlots) + buttonSpacing, buttonSize + (buttonSpacing * 2))
@@ -788,11 +789,8 @@ function B:SetButtonTexture(button, texture)
 end
 
 function B:ConstructContainerFrame(name, isBank)
-	local strata = E.db.bags.strata or 'HIGH'
-
 	local f = CreateFrame('Button', name, E.UIParent)
 	f:SetTemplate('Transparent')
-	f:SetFrameStrata(strata)
 	B:SetupItemGlow(f)
 
 	f.events = isBank and { 'BANK_BAG_SLOT_FLAGS_UPDATED', 'PLAYERBANKSLOTS_CHANGED' } or { 'ITEM_LOCK_CHANGED', 'BAG_SLOT_FLAGS_UPDATED', 'QUEST_ACCEPTED', 'QUEST_REMOVED' }
@@ -1660,6 +1658,8 @@ function B:Initialize()
 
 	--Enable/Disable 'Loot to Leftmost Bag'
 	SetInsertItemsLeftToRight(E.db.bags.reverseLoot)
+
+	StackSplitFrame:SetFrameLevel(255)
 end
 
 E:RegisterModule(B:GetName())

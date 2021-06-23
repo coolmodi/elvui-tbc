@@ -1,6 +1,6 @@
 ## Interface: 20501
 ## Author: Elv, Simpy
-## Version: 2.09
+## Version: 2.10
 ## Title: |cff1784d1ElvUI TBC|r
 ## Notes: User Interface replacement AddOn for World of Warcraft.
 ## SavedVariables: ElvDB, ElvPrivateDB

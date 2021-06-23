@@ -3,9 +3,12 @@ local AB = E:GetModule('ActionBars')
 
 local _G = _G
 local gsub = gsub
+local next = next
+local wipe = wipe
 local pairs = pairs
 local assert = assert
 local unpack = unpack
+local tinsert = tinsert
 local CreateFrame = CreateFrame
 local UpdateMicroButtonsParent = UpdateMicroButtonsParent
 local RegisterStateDriver = RegisterStateDriver
@@ -137,6 +140,22 @@ local commandKeys = {
 	HelpMicroButton = nil, -- special
 }
 
+do
+	local buttons = {}
+	function AB:ShownMicroButtons()
+		wipe(buttons)
+
+		for _, name in next, _G.MICRO_BUTTONS do
+			local button = _G[name]
+			if button and button:IsShown() then
+				tinsert(buttons, name)
+			end
+		end
+
+		return buttons
+	end
+end
+
 function AB:UpdateMicroPositionDimensions()
 	local db = AB.db.microbar
 	microBar.db = db
@@ -146,25 +165,26 @@ function AB:UpdateMicroPositionDimensions()
 
 	AB:MoverMagic(microBar)
 
-	local btns = _G.MICRO_BUTTONS
+	local btns = AB:ShownMicroButtons()
 	local numBtns = #btns
 	db.buttons = numBtns
 
+	local buttonsPerRow = db.buttonsPerRow
 	local backdropSpacing = db.backdropSpacing
+
 	local _, horizontal, anchorUp, anchorLeft = AB:GetGrowth(db.point)
 	local lastButton, anchorRowButton = microBar
-	for i = 1, numBtns do
-		local name = btns[i]
+	for i, name in next, btns do
 		local button = _G[name]
 
-		local columnIndex = i - db.buttonsPerRow
+		local columnIndex = i - buttonsPerRow
 		local columnName = btns[columnIndex]
 		local columnButton = _G[columnName]
 
 		button.commandName = commandKeys[name] -- to support KB like retail
 		button.db = db
 
-		if i == 1 or i == db.buttonsPerRow then
+		if i == 1 or i == buttonsPerRow then
 			anchorRowButton = button
 		end
 
@@ -207,7 +227,7 @@ function AB:SetupMicroBar()
 		AB:HandleMicroButton(_G[x])
 	end
 
-	-- _G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton.backdrop)
+	_G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton.backdrop)
 
 	AB:SecureHook('UpdateMicroButtonsParent')
 	AB:SecureHook('MoveMicroButtons', 'UpdateMicroPositionDimensions')
