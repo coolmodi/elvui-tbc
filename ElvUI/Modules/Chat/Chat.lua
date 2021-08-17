@@ -328,7 +328,7 @@ do
 		local text = self:GetText()
 		local len = strlen(text)
 
-		if (not repeatedText or not strfind(text, repeatedText, 1, true)) and InCombatLockdown() then
+		if CH.db.enableCombatRepeat and InCombatLockdown() and (not repeatedText or not strfind(text, repeatedText, 1, true)) then
 			local MIN_REPEAT_CHARACTERS = CH.db.numAllowedCombatRepeat
 			if len > MIN_REPEAT_CHARACTERS then
 				local repeatChar = true
@@ -1298,7 +1298,7 @@ function CH:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 	arg2 = Ambiguate(arg2, (chatType == 'GUILD' and 'guild') or 'none')
 
 	local info = arg12 and _G.ChatTypeInfo[chatType]
-	if info and _G.Chat_ShouldColorChatByClass(info) then
+	if info then
 		local data = CH:GetPlayerInfoByGUID(arg12)
 		local classColor = data and data.classColor
 		if classColor then

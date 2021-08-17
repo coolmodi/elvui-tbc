@@ -123,8 +123,8 @@ E.ClassRole = {
 
 E.DispelClasses = {
 	PRIEST	= { Magic = true,  Disease = true },
-	SHAMAN	= { Magic = false, Curse = true },
-	PALADIN	= { Poison = true, Magic = false,  Disease = true },
+	SHAMAN	= { Magic = false, Poison = true,  Disease = true, Curse = false },
+	PALADIN	= { Magic = true, Poison = true,  Disease = true },
 	DRUID	= { Magic = false, Curse = true,   Poison = true,  Disease = false },
 	MAGE	= { Curse = true }
 }
@@ -1125,7 +1125,7 @@ do -- BFA Convert, deprecated..
 		end
 
 		--Heal Prediction is now a table instead of a bool
-		for _, unit in ipairs({'player','target','focus','pet','arena','party','raid','raid40','raidpet'}) do
+		for _, unit in ipairs({'player','target','focus','pet','arena','party','raid','raid40','raidpet','tank','assist'}) do
 			if type(E.db.unitframe.units[unit].healPrediction) ~= 'table' then
 				local enabled = E.db.unitframe.units[unit].healPrediction
 				E.db.unitframe.units[unit].healPrediction = {}

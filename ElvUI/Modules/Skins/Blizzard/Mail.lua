@@ -34,21 +34,15 @@ function S:MailFrame()
 
 		mail:StripTextures()
 		mail:CreateBackdrop('Default')
-		mail.backdrop:Point('TOPLEFT', 42, -2)
-		mail.backdrop:Point('BOTTOMRIGHT', -2, 6)
-
-		mail.bg = CreateFrame('Frame', nil, mail)
-		mail.bg:SetTemplate('Default', true)
-		mail.bg:Point('TOPLEFT', -2, -2)
-		mail.bg:Point('BOTTOMRIGHT', -270, 6)
-		mail.bg:SetFrameLevel(mail.bg:GetFrameLevel() - 2)
+		mail.backdrop:Point('TOPLEFT', 42, -3)
+		mail.backdrop:Point('BOTTOMRIGHT', -2, 5)
 
 		button:StripTextures()
+		button:SetTemplate()
 		button:StyleButton()
-		button:SetAllPoints(mail.bg)
 
 		icon:SetTexCoord(unpack(E.TexCoords))
-		icon:SetInside(mail.bg)
+		icon:SetInside()
 	end
 
 	hooksecurefunc('InboxFrame_Update', function()
@@ -68,18 +62,18 @@ function S:MailFrame()
 						local quality = select(3, GetItemInfo(ItemLink))
 
 						if quality and quality > 1 then
-							mail.bg:SetBackdropBorderColor(GetItemQualityColor(quality))
+							mail.backdrop:SetBackdropBorderColor(GetItemQualityColor(quality))
 						else
-							mail.bg:SetBackdropBorderColor(unpack(E.media.bordercolor))
+							mail.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 						end
 					end
 				elseif isGM then
-					mail.bg:SetBackdropBorderColor(0, 0.56, 0.94)
+					mail.backdrop:SetBackdropBorderColor(0, 0.56, 0.94)
 				else
-					mail.bg:SetBackdropBorderColor(unpack(E.media.bordercolor))
+					mail.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 				end
 			else
-				mail.bg:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				mail.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 			end
 
 			index = index + 1

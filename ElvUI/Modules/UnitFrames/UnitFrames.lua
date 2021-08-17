@@ -243,16 +243,13 @@ function UF:ConvertGroupDB(group)
 end
 
 function UF:Construct_UF(frame, unit)
-	frame:SetScript('OnEnter', UnitFrame_OnEnter)
-	frame:SetScript('OnLeave', UnitFrame_OnLeave)
+	frame:SetScript('OnEnter', UF.UnitFrame_OnEnter)
+	frame:SetScript('OnLeave', UF.UnitFrame_OnLeave)
+	frame.RaisedElementParent = UF:CreateRaisedElement(frame)
 
 	frame.SHADOW_SPACING = 3
 	frame.CLASSBAR_YOFFSET = 0 --placeholder
 	frame.BOTTOM_OFFSET = 0 --placeholder
-
-	frame.RaisedElementParent = CreateFrame('Frame', nil, frame)
-	frame.RaisedElementParent.TextureParent = CreateFrame('Frame', nil, frame.RaisedElementParent)
-	frame.RaisedElementParent:SetFrameLevel(frame:GetFrameLevel() + 100)
 
 	if not UF.groupunits[unit] then
 		UF['Construct_'..gsub(E:StringTitle(unit), 't(arget)', 'T%1')..'Frame'](UF, frame, unit)
@@ -262,6 +259,45 @@ function UF:Construct_UF(frame, unit)
 
 	return frame
 end
+
+function UF:CreateRaisedText(raised)
+	local text = raised:CreateFontString(nil, 'OVERLAY')
+	UF:Configure_FontString(text)
+
+	return text
+end
+
+function UF:CreateRaisedElement(frame, bar)
+	local raised = CreateFrame('Frame', nil, frame)
+	raised:SetFrameLevel(frame:GetFrameLevel() + 100)
+	raised.__owner = frame
+
+	if bar then
+		raised:SetAllPoints()
+	else
+		raised.TextureParent = CreateFrame('Frame', nil, raised)
+	end
+
+	return raised
+end
+
+function UF:SetAlpha_MouseTags(mousetags, alpha)
+	if not mousetags then return end
+	for fs in next, mousetags do
+		fs:SetAlpha(alpha)
+	end
+end
+
+function UF:UnitFrame_OnEnter(...)
+	UnitFrame_OnEnter(self, ...)
+	UF:SetAlpha_MouseTags(self.__mousetags, 1)
+end
+
+function UF:UnitFrame_OnLeave(...)
+	UnitFrame_OnLeave(self, ...)
+	UF:SetAlpha_MouseTags(self.__mousetags, 0)
+end
+
 
 function UF:GetObjectAnchorPoint(frame, point)
 	if point == 'Frame' then

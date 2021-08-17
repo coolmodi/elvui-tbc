@@ -12,12 +12,10 @@ local InCombatLockdown = InCombatLockdown
 local RegisterAttributeDriver = RegisterAttributeDriver
 
 function UF:Construct_AssistFrames()
-	self:SetScript('OnEnter', _G.UnitFrame_OnEnter)
-	self:SetScript('OnLeave', _G.UnitFrame_OnLeave)
+	self:SetScript('OnEnter', UF.UnitFrame_OnEnter)
+	self:SetScript('OnLeave', UF.UnitFrame_OnLeave)
 
-	self.RaisedElementParent = CreateFrame('Frame', nil, self)
-	self.RaisedElementParent.TextureParent = CreateFrame('Frame', nil, self.RaisedElementParent)
-	self.RaisedElementParent:SetFrameLevel(self:GetFrameLevel() + 100)
+	self.RaisedElementParent = UF:CreateRaisedElement(self)
 
 	self.Health = UF:Construct_HealthBar(self, true)
 	self.Name = UF:Construct_NameText(self)
@@ -26,6 +24,7 @@ function UF:Construct_AssistFrames()
 	self.MouseGlow = UF:Construct_MouseGlow(self)
 	self.TargetGlow = UF:Construct_TargetGlow(self)
 	self.FocusGlow = UF:Construct_FocusGlow(self)
+	self.HealthPrediction = UF:Construct_HealComm(self)
 	self.Fader = UF:Construct_Fader()
 	self.Cutaway = UF:Construct_Cutaway(self)
 
@@ -123,6 +122,7 @@ function UF:Update_AssistFrames(frame, db)
 	UF:Configure_HealthBar(frame)
 	UF:Configure_Threat(frame)
 	UF:UpdateNameSettings(frame)
+	UF:Configure_HealComm(frame)
 	UF:Configure_Fader(frame)
 	UF:Configure_RaidIcon(frame)
 	UF:Configure_Cutaway(frame)

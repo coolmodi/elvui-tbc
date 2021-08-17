@@ -12,10 +12,7 @@ local CreateFrame = CreateFrame
 local ArenaHeader = CreateFrame('Frame', 'ArenaHeader', E.UIParent)
 
 function UF:Construct_ArenaFrames(frame)
-	frame.RaisedElementParent = CreateFrame('Frame', nil, frame)
-	frame.RaisedElementParent.TextureParent = CreateFrame('Frame', nil, frame.RaisedElementParent)
-	frame.RaisedElementParent:SetFrameLevel(frame:GetFrameLevel() + 100)
-
+	frame.RaisedElementParent = UF:CreateRaisedElement(frame)
 	frame.Health = UF:Construct_HealthBar(frame, true, true, 'RIGHT')
 	frame.Name = UF:Construct_NameText(frame)
 

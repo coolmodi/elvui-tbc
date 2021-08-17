@@ -1,4 +1,23 @@
-### Version 2.11 [ ETA: 🍨 ]
+### Version 2.13 [ ETA: 🍨 ]
+___
+### Version 2.12 [14-08-2021]
+**• Added missing tag info for classcolor:target**  
+**• Fixed [mouseover] tags**  
+**• Updated AuraWatch (Succubus, Freeze Trap)**  
+**• Updated Avoidance DataText (Merge Request #8)**  
+**• Updated LibChatAnims Minor 4**  
+**• Updated LibSharedMedia Rev 114**  
+**• Updated zhTW Locales (Credits: Levanah Lin, Request #7)**  
+___
+### Version 2.11 [11-08-2021]
+**• Added an option to enable/disable combat text repeat in Chat**  
+**• Added Heal Prediction to Tank & Assist Frames**  
+**• Fixed Durability DataText NoLabel**  
+**• New Tags API from retail, plugins need updating**  
+**• Updated AuraWatch for Priest Prayer of Shadow Protection(Rank 2)**  
+**• Updated Dispellable Filter (Paladin, Shaman)**  
+**• Updated ElvUI Version decimals in tooltip**  
+**• Updated LibHealComm-4.0 Minor 95**  
 ___
 ### Version 2.10 [20-06-2021]
 **• Fixed Frame Strata for Bags & Stack Split**  

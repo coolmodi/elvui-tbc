@@ -14,8 +14,7 @@ local GetMoneyString = GetMoneyString
 
 local DURABILITY = DURABILITY
 local REPAIR_COST = REPAIR_COST
-local displayString = DURABILITY..': %s%d%%|r'
-local tooltipString = "%d%%"
+local tooltipString = '%d%%'
 local totalDurability = 0
 local invDurability = {}
 local totalRepairCost
@@ -50,13 +49,14 @@ local function OnEvent(self)
 				totalDurability = perc
 			end
 
-			totalRepairCost = totalRepairCost + select(3, E.ScanTooltip:SetInventoryItem("player", index))
+			totalRepairCost = totalRepairCost + select(3, E.ScanTooltip:SetInventoryItem('player', index))
 		end
 	end
 
 	local r, g, b = E:ColorGradient(totalDurability * .01, 1, .1, .1, 1, 1, .1, .1, 1, .1)
 	local hex = E:RGBToHex(r, g, b)
-	self.text:SetFormattedText(displayString, hex, totalDurability)
+
+	self.text:SetFormattedText(E.global.datatexts.settings.Durability.NoLabel and '%s%d%%|r' or DURABILITY..': %s%d%%|r', hex, totalDurability)
 
 	if totalDurability <= E.global.datatexts.settings.Durability.percThreshold then
 		E:Flash(self, 0.53, true)
@@ -67,7 +67,7 @@ end
 
 local function Click()
 	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
-	ToggleCharacter("PaperDollFrame")
+	ToggleCharacter('PaperDollFrame')
 end
 
 local function OnEnter()
@@ -85,4 +85,4 @@ local function OnEnter()
 	DT.tooltip:Show()
 end
 
-DT:RegisterDatatext('Durability', nil, {"UPDATE_INVENTORY_DURABILITY", "MERCHANT_SHOW"}, OnEvent, nil, Click, OnEnter, nil, DURABILITY)
+DT:RegisterDatatext('Durability', nil, {'UPDATE_INVENTORY_DURABILITY', 'MERCHANT_SHOW'}, OnEvent, nil, Click, OnEnter, nil, DURABILITY)

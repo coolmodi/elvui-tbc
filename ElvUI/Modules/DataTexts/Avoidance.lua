@@ -19,7 +19,7 @@ local STAT_CATEGORY_ENHANCEMENTS = STAT_CATEGORY_ENHANCEMENTS
 
 local displayString, lastPanel, targetlv, playerlv
 local basemisschance, misschance, baseDef, armorDef, leveldifference, dodge, parry, block, unhittable
-local AVD_DECAY_RATE, chanceString = 1.5, '%.2f%%'
+local AVD_DECAY_RATE, chanceString = 0.2, '%.2f%%'	--According to Light's Club discord, avoidance decay should be 0.2% per level per avoidance (thus 102.4 for +3 crush cap)
 
 local function IsWearingShield()
 	local slotID = GetInventorySlotInfo('SecondaryHandSlot')
@@ -33,8 +33,9 @@ end
 
 local function OnEvent(self)
 	targetlv, playerlv = UnitLevel('target'), E.mylevel
-
-	basemisschance = E.myrace == 'NightElf' and 7 or 5
+	
+	basemisschance = 5	--Base miss chance is 5%. 
+	
 	if targetlv == -1 then
 		leveldifference = 3
 	elseif targetlv > playerlv then
@@ -44,7 +45,10 @@ local function OnEvent(self)
 	else
 		leveldifference = 0
 	end
-
+	if UnitExists("target")==false then	--If there's no target, we'll assume we're talking about a lvl +3 boss. You can click yourself to see against your level.
+		leveldifference = 3
+		targetlv = 73
+	end
 	if leveldifference >= 0 then
 		dodge = (GetDodgeChance() - leveldifference * AVD_DECAY_RATE)
 		parry = (GetParryChance() - leveldifference * AVD_DECAY_RATE)
@@ -59,9 +63,18 @@ local function OnEvent(self)
 
 	local unhittableMax = 100
 	local numAvoidances = 4
-	if dodge <= 0 then dodge = 0 end
-	if parry <= 0 then parry = 0 end
-	if block <= 0 then block = 0 end
+	if dodge <= 0 then 
+		dodge = 0
+		numAvoidances = numAvoidances - 1
+	end
+	if parry <= 0 then 
+		parry = 0 
+		numAvoidances = numAvoidances - 1
+	end
+	if block <= 0 then 
+		block = 0 
+		numAvoidances = numAvoidances - 1
+	end
 
 	if E.myclass == 'DRUID' and GetBonusBarOffset() == 3 then
 		parry = 0
@@ -78,7 +91,7 @@ local function OnEvent(self)
     misschance = (basemisschance + (armorDef + baseDef - (5*playerlv))*0.04);
 
 	local avoided = (dodge+parry+misschance) --First roll on hit table determining if the hit missed
-	local blocked = (100 - avoided)*block/100 --If the hit landed then the second roll determines if the his was blocked
+	local blocked = block
 	local avoidance = (avoided+blocked)
 	unhittable = avoidance - unhittableMax
 
@@ -94,7 +107,7 @@ end
 
 local function OnEnter()
 	DT.tooltip:ClearLines()
-	if targetlv > 1 then
+	if targetlv > 0 then
 		DT.tooltip:AddDoubleLine(L["Avoidance Breakdown"], strjoin('', ' (', L["lvl"], ' ', targetlv, ')'))
 	elseif targetlv == -1 then
 		DT.tooltip:AddDoubleLine(L["Avoidance Breakdown"], strjoin('', ' (', BOSS, ')'))

@@ -13,9 +13,6 @@ local GetActiveSpecGroup = GetActiveSpecGroup
 local DispelList, BlackList = {}, {}
 -- GLOBALS: DebuffTypeColor
 
---local DispellPriority = { Magic = 4, Curse = 3, Disease = 2, Poison = 1 }
---local FilterList = {}
-
 if Classic or TBC then
 	DispelList.PRIEST	= { Magic = true, Disease = true }
 	DispelList.SHAMAN	= { Poison = true, Disease = true }
