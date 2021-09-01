@@ -1,4 +1,14 @@
-### Version 2.13 [ ETA: 🍨 ]
+### Version 2.13 [01-09-2021]
+**Added NoLabel checkbox for Friends, Guild, System DataText (PR !9, Xii)**  
+**Added skin for Guild Bank**  
+**Added skin for LFG**  
+**Added skin for LFM**  
+**Added support for LFG Minimap icon**  
+**Fixed a rare mover error**  
+**Fixed oUF_RaidDebuffs error**  
+**Fixes for Master Looter**  
+**Smart Raid Filter will no longer disable Raid Pets**  
+**Updated skin for Mailbox**  
 ___
 ### Version 2.12 [14-08-2021]
 **• Added missing tag info for classcolor:target**  

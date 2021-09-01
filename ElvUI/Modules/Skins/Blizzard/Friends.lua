@@ -508,12 +508,26 @@ function S:FriendsFrame()
 	S:HandleButton(_G.GuildControlPopupAcceptButton)
 	S:HandleButton(_G.GuildControlPopupFrameCancelButton)
 
+	_G.GuildControlPopupFrameTabPermissions:StripTextures()
+
 	-- Raid Frame
 	S:HandleButton(_G.RaidFrameConvertToRaidButton)
 	_G.RaidFrameConvertToRaidButton:Point('BOTTOMRIGHT', -6, 4)
 	S:HandleButton(_G.RaidFrameRaidInfoButton)
 
 	S:HandleCheckBox(_G.RaidFrameAllAssistCheckButton)
+
+	for i = 1, _G.MAX_GUILDBANK_TABS do
+		_G['GuildBankTabPermissionsTab'..i]:StripTextures()
+	end
+
+	S:HandleEditBox(_G.GuildControlWithdrawGoldEditBox)
+	S:HandleEditBox(_G.GuildControlWithdrawItemsEditBox)
+	_G.GuildControlWithdrawGoldEditBox:Height(20)
+	_G.GuildControlWithdrawItemsEditBox:Height(20)
+	S:HandleCheckBox(_G.GuildControlTabPermissionsViewTab)
+	S:HandleCheckBox(_G.GuildControlTabPermissionsDepositItems)
+	S:HandleCheckBox(_G.GuildControlTabPermissionsUpdateText)
 
 	-- Raid Info Frame
 	_G.RaidInfoFrame:StripTextures(true)

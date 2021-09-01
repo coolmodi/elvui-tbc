@@ -229,7 +229,7 @@ local function OnUpdate(self, elapsed)
 
 		local fps = framerate >= 30 and 1 or (framerate >= 20 and framerate < 30) and 2 or (framerate >= 10 and framerate < 20) and 3 or 4
 		local ping = latency < 150 and 1 or (latency >= 150 and latency < 300) and 2 or (latency >= 300 and latency < 500) and 3 or 4
-		self.text:SetFormattedText('FPS: %s%d|r MS: %s%d|r', statusColors[fps], framerate, statusColors[ping], latency)
+		self.text:SetFormattedText(E.global.datatexts.settings.System.NoLabel and '%s%d|r %s%d|r' or 'FPS: %s%d|r MS: %s%d|r', statusColors[fps], framerate, statusColors[ping], latency)
 
 		if not enteredFrame then return end
 

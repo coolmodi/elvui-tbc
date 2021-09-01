@@ -274,6 +274,15 @@ function M:UpdateSettings()
 		end
 	end
 
+	local MiniMapLFGFrame = _G.MiniMapLFGFrame
+	if MiniMapLFGFrame then
+		local pos = E.db.general.minimap.icons.lfgEye.position or 'BOTTOMRIGHT'
+		local scale = E.db.general.minimap.icons.lfgEye.scale or 1
+		MiniMapLFGFrame:ClearAllPoints()
+		MiniMapLFGFrame:Point(pos, Minimap, pos, E.db.general.minimap.icons.lfgEye.xOffset or 3, E.db.general.minimap.icons.lfgEye.yOffset or 0)
+		MiniMapLFGFrame:SetScale(scale)
+	end
+
 	local MiniMapTracking = _G.MiniMapTracking
 	if (MiniMapTracking) then
 		if E.private.general.minimap.hideTracking then
@@ -375,6 +384,7 @@ function M:Initialize()
 		_G.MinimapZoneTextButton,
 		_G.MinimapToggleButton,
 		_G.MiniMapMailBorder,
+		_G.MiniMapLFGBorder,
 		_G.GameTimeFrame,
 	}
 

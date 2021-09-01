@@ -7,7 +7,6 @@ local unpack, pairs = unpack, pairs
 local tinsert = tinsert
 local max = max
 
-local CloseDropDownMenus = CloseDropDownMenus
 local CloseLoot = CloseLoot
 local CreateFrame = CreateFrame
 local CursorOnUpdate = CursorOnUpdate
@@ -17,7 +16,6 @@ local GetCVarBool = GetCVarBool
 local GetLootSlotInfo = GetLootSlotInfo
 local GetLootSlotLink = GetLootSlotLink
 local GetNumLootItems = GetNumLootItems
-local GiveMasterLoot = GiveMasterLoot
 local HandleModifiedItemClick = HandleModifiedItemClick
 local IsFishingLoot = IsFishingLoot
 local IsModifiedClick = IsModifiedClick
@@ -25,16 +23,16 @@ local LootSlot = LootSlot
 local LootSlotHasItem = LootSlotHasItem
 local ResetCursor = ResetCursor
 local StaticPopup_Hide = StaticPopup_Hide
-local StaticPopup_Show = StaticPopup_Show
 local ToggleDropDownMenu = ToggleDropDownMenu
 local UIDropDownMenu_Refresh = UIDropDownMenu_Refresh
 local UnitIsDead = UnitIsDead
 local UnitIsFriend = UnitIsFriend
 local UnitName = UnitName
 
+local hooksecurefunc = hooksecurefunc
 local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
-local LOOT = LOOT
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
+local LOOT = LOOT
 
 local coinTextureIDs = {
 	[133784] = true,
@@ -318,6 +316,7 @@ end
 
 function M:LoadLoot()
 	if not E.private.general.loot then return end
+
 	lootFrameHolder = CreateFrame('Frame', 'ElvLootFrameHolder', E.UIParent)
 	lootFrameHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 418, -186)
 	lootFrameHolder:Size(150, 22)
@@ -334,9 +333,13 @@ function M:LoadLoot()
 	lootFrame.title:FontTemplate(nil, nil, 'OUTLINE')
 	lootFrame.title:Point('BOTTOMLEFT', lootFrame, 'TOPLEFT', 0, 1)
 	lootFrame.slots = {}
-	lootFrame:SetScript('OnHide', function()
+	lootFrame:SetScript('OnHide', function() -- mimic LootFrame_OnHide, mostly
 		StaticPopup_Hide('CONFIRM_LOOT_DISTRIBUTION')
 		CloseLoot()
+
+		if _G.MasterLooterFrame then
+			_G.MasterLooterFrame:Hide()
+		end
 	end)
 	E.frames[lootFrame] = nil
 
@@ -348,26 +351,9 @@ function M:LoadLoot()
 
 	E:CreateMover(lootFrameHolder, 'LootFrameMover', L["Loot Frame"], nil, nil, nil, nil, nil, 'general,blizzUIImprovements')
 
-	-- Fuzz
 	_G.LootFrame:UnregisterAllEvents()
 	tinsert(_G.UISpecialFrames, 'ElvLootFrame')
 
-	function _G.GroupLootDropDown_GiveLoot()
-		local LootFrame = _G.LootFrame
-		if LootFrame.selectedQuality >= _G.MASTER_LOOT_THREHOLD then
-			local dialog = StaticPopup_Show("CONFIRM_LOOT_DISTRIBUTION", ITEM_QUALITY_COLORS[LootFrame.selectedQuality].hex..LootFrame.selectedItemName.._G.FONT_COLOR_CODE_CLOSE, self:GetText())
-			if dialog then
-				dialog.data = self.value
-			end
-		else
-			GiveMasterLoot(LootFrame.selectedSlot, self.value)
-		end
-		CloseDropDownMenus()
-	end
-
-	E.PopupDialogs["CONFIRM_LOOT_DISTRIBUTION"].OnAccept = function(data)
-		GiveMasterLoot(_G.LootFrame.selectedSlot, data)
-	end
-
-	_G.StaticPopupDialogs["CONFIRM_LOOT_DISTRIBUTION"].preferredIndex = 3
+	-- fix blizzard setpoint connection bs
+	hooksecurefunc(_G.MasterLooterFrame, 'Hide', _G.MasterLooterFrame.ClearAllPoints)
 end

@@ -279,14 +279,14 @@ local function UpdateMover(name, parent, textString, overlay, snapOffset, postdr
 end
 
 function E:CalculateMoverPoints(mover, nudgeX, nudgeY)
-	local centerX, centerY = E.UIParent:GetCenter()
-	local width = E.UIParent:GetRight()
+	local centerX, centerY = UIParent:GetCenter()
+	local width = UIParent:GetRight()
 	local x, y = mover:GetCenter()
 
 	local point, nudgePoint, nudgeInversePoint = 'BOTTOM', 'BOTTOM', 'TOP'
 	if y >= centerY then -- TOP: 1080p = 540
 		point, nudgePoint, nudgeInversePoint = 'TOP', 'TOP', 'BOTTOM'
-		y = -(E.UIParent:GetTop() - mover:GetTop())
+		y = -(UIParent:GetTop() - mover:GetTop())
 	else
 		y = mover:GetBottom()
 	end

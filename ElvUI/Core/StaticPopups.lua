@@ -399,13 +399,6 @@ E.PopupDialogs.DISBAND_RAID = {
 	whileDead = 1,
 }
 
-E.PopupDialogs.CONFIRM_LOOT_DISTRIBUTION = {
-	text = CONFIRM_LOOT_DISTRIBUTION,
-	button1 = YES,
-	button2 = NO,
-	hideOnEscape = 1,
-}
-
 E.PopupDialogs.RESET_PROFILE_PROMPT = {
 	text = L["Are you sure you want to reset all the settings on this profile?"],
 	button1 = YES,

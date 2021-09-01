@@ -281,7 +281,7 @@ local function OnEvent(self, event, ...)
 end
 
 local function ValueColorUpdate(hex)
-	displayString = strjoin("", GUILD, ": ", hex, "%d|r")
+	displayString = E.global.datatexts.settings.Guild.NoLabel and strjoin("", hex, "%d|r") or strjoin("", GUILD, ": ", hex, "%d|r")
 	noGuildString = hex..L["No Guild"]
 
 	if lastPanel ~= nil then

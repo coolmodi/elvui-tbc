@@ -319,7 +319,7 @@ function S:Blizzard_Communities()
 
 	-- Bottom Tabs
 	for i = 1, 5 do
-		S:HandleTab(_G['CommunitiesFrameTab1'..i])
+		S:HandleTab(_G['CommunitiesFrameTab'..i])
 	end
 end
 

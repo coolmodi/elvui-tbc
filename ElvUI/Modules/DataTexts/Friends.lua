@@ -522,12 +522,12 @@ local function OnEvent(self, event, message)
 		OnEnter(self)
 	end
 
-	self.text:SetFormattedText(displayString, _G.FRIENDS, onlineFriends + numBNetOnline)
+	self.text:SetFormattedText(displayString, onlineFriends + numBNetOnline)
 	lastPanel = self
 end
 
 local function ValueColorUpdate(hex)
-	displayString = strjoin("", "%s: ", hex, "%d|r")
+	displayString = E.global.datatexts.settings.Friends.NoLabel and hex.."%d|r" or strjoin("", _G.FRIENDS, ": ", hex, "%d|r")
 
 	if lastPanel ~= nil then
 		OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')
