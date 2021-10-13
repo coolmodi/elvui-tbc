@@ -204,6 +204,7 @@ end
 do
 	function ClassPowerEnable(self)
 		self:RegisterEvent('UNIT_POWER_FREQUENT', Path)
+		self:RegisterEvent('UNIT_TARGET', Path)
 		self:RegisterEvent('UNIT_MAXPOWER', Path)
 
 		self.ClassPower.isEnabled = true
@@ -213,6 +214,7 @@ do
 
 	function ClassPowerDisable(self)
 		self:UnregisterEvent('UNIT_POWER_FREQUENT', Path)
+		self:UnregisterEvent('UNIT_TARGET', Path)
 		self:UnregisterEvent('UNIT_MAXPOWER', Path)
 
 		local element = self.ClassPower

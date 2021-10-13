@@ -14,9 +14,8 @@
 	<Script file='LibSimpleSticky\LibSimpleSticky.lua'/>
 
 	<Include file='LibQuestXP\LibQuestXP.xml'/>
-	<Script file='LibHealComm-4.0\LibHealComm-4.0.lua'/>
 	<Script file='LibClassicSpellActionCount-1.0\LibClassicSpellActionCount-1.0.lua'/>
-
+	<Script file='LibHealComm-4.0\LibHealComm.lua'/>
 	<Include file='oUF\oUF.xml'/>
 	<Include file='oUF_Plugins\oUF_Plugins.xml'/>
 

@@ -23,8 +23,9 @@ local LootSlot = LootSlot
 local LootSlotHasItem = LootSlotHasItem
 local ResetCursor = ResetCursor
 local StaticPopup_Hide = StaticPopup_Hide
-local ToggleDropDownMenu = ToggleDropDownMenu
-local UIDropDownMenu_Refresh = UIDropDownMenu_Refresh
+local MasterLooterFrame_Show = MasterLooterFrame_Show
+local MasterLooterFrame_UpdatePlayers = MasterLooterFrame_UpdatePlayers
+
 local UnitIsDead = UnitIsDead
 local UnitIsFriend = UnitIsFriend
 local UnitName = UnitName
@@ -127,8 +128,7 @@ local function createSlot(id)
 	frame:SetScript('OnShow', OnShow)
 
 	local iconFrame = CreateFrame('Frame', nil, frame)
-	iconFrame:Height(iconsize)
-	iconFrame:Width(iconsize)
+	iconFrame:Size(iconsize)
 	iconFrame:Point('RIGHT', frame)
 	iconFrame:SetTemplate()
 	frame.iconFrame = iconFrame
@@ -155,7 +155,7 @@ local function createSlot(id)
 	frame.name = name
 
 	local drop = frame:CreateTexture(nil, 'ARTWORK')
-	drop:SetTexture('Interface\\QuestFrame\\UI-QuestLogTitleHighlight')
+	drop:SetTexture('Interface/QuestFrame/UI-QuestLogTitleHighlight')
 	drop:Point('LEFT', icon, 'RIGHT', 0, 0)
 	drop:Point('RIGHT', frame)
 	drop:SetAllPoints(frame)
@@ -229,7 +229,7 @@ function M:LOOT_OPENED(_, autoloot)
 		for i=1, items do
 			local slot = lootFrame.slots[i] or createSlot(i)
 			local textureID, item, quantity, _, quality, _, isQuestItem, questId, isActive = GetLootSlotInfo(i)
-			local color = ITEM_QUALITY_COLORS[quality]
+			local color = ITEM_QUALITY_COLORS[quality or 0]
 
 			if coinTextureIDs[textureID] then
 				item = item:gsub('\n', ', ')
@@ -251,9 +251,7 @@ function M:LOOT_OPENED(_, autoloot)
 
 			slot.quality = quality
 			slot.name:SetText(item)
-			if color then
-				slot.name:SetTextColor(color.r, color.g, color.b)
-			end
+			slot.name:SetTextColor(color.r, color.g, color.b)
 			slot.icon:SetTexture(textureID)
 
 			if quality then
@@ -283,11 +281,9 @@ function M:LOOT_OPENED(_, autoloot)
 		local slot = lootFrame.slots[1] or createSlot(1)
 		local color = ITEM_QUALITY_COLORS[0]
 
-		slot.name:SetText(L["Empty Slot"])
-		if color then
-			slot.name:SetTextColor(color.r, color.g, color.b)
-		end
-		slot.icon:SetTexture([[Interface\Icons\Inv_misc_questionmark]])
+		slot.name:SetText(L["No Loot"])
+		slot.name:SetTextColor(color.r, color.g, color.b)
+		slot.icon:SetTexture()
 
 		w = max(w, slot.name:GetStringWidth())
 
@@ -296,6 +292,7 @@ function M:LOOT_OPENED(_, autoloot)
 		slot:Disable()
 		slot:Show()
 	end
+
 	anchorSlots(lootFrame)
 
 	w = w + 60
@@ -307,11 +304,11 @@ function M:LOOT_OPENED(_, autoloot)
 end
 
 function M:OPEN_MASTER_LOOT_LIST()
-	ToggleDropDownMenu(1, nil, _G.GroupLootDropDown, lootFrame.slots[_G.LootFrame.selectedSlot], 0, 0)
+	MasterLooterFrame_Show(_G.LootFrame.selectedLootButton)
 end
 
 function M:UPDATE_MASTER_LOOT_LIST()
-	UIDropDownMenu_Refresh(_G.GroupLootDropDown)
+	if _G.LootFrame.selectedLootButton then MasterLooterFrame_UpdatePlayers() end
 end
 
 function M:LoadLoot()
@@ -353,7 +350,4 @@ function M:LoadLoot()
 
 	_G.LootFrame:UnregisterAllEvents()
 	tinsert(_G.UISpecialFrames, 'ElvLootFrame')
-
-	-- fix blizzard setpoint connection bs
-	hooksecurefunc(_G.MasterLooterFrame, 'Hide', _G.MasterLooterFrame.ClearAllPoints)
 end

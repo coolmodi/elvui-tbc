@@ -1,3 +1,17 @@
+### Version 2.17 [10-09-2021]
+**Fixed Shaman totems classbar**  
+**HealComm for Group UnitFrames**  
+___
+### Version 2.16 [10-09-2021]
+**LibHealComm is now used until Blizzard fixed the API**  
+**Updated links, development is now on GitHub (was GitLab)**  
+___
+### Version 2.15 [08-09-2021]
+**Added back old player UnitFrame classbar for Shaman totems**  
+**Blizzard added heal prediction API. This version will support it.**  
+**Fixed an issue with Prayer of Shadow Protection AuraWatch**  
+**Removed absorb and overabsorb options. Not available in TBC.**  
+___
 ### Version 2.14 [02-09-2021]
 **Fixed Merchant skin (Repair All, Guild Repair)**  
 ___

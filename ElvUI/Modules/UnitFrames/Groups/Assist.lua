@@ -5,9 +5,7 @@ local _, ns = ...
 local ElvUF = ns.oUF
 assert(ElvUF, 'ElvUI was unable to locate oUF.')
 
-local _G = _G
 local max = max
-local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local RegisterAttributeDriver = RegisterAttributeDriver
 
@@ -24,7 +22,6 @@ function UF:Construct_AssistFrames()
 	self.MouseGlow = UF:Construct_MouseGlow(self)
 	self.TargetGlow = UF:Construct_TargetGlow(self)
 	self.FocusGlow = UF:Construct_FocusGlow(self)
-	self.HealthPrediction = UF:Construct_HealComm(self)
 	self.Fader = UF:Construct_Fader()
 	self.Cutaway = UF:Construct_Cutaway(self)
 
@@ -34,6 +31,7 @@ function UF:Construct_AssistFrames()
 		self.AuraWatch = UF:Construct_AuraWatch(self)
 		self.RaidDebuffs = UF:Construct_RaidDebuffs(self)
 		self.AuraHighlight = UF:Construct_AuraHighlight(self)
+		self.HealthPrediction = UF:Construct_HealComm(self)
 
 		self.unitframeType = 'assist'
 	else
@@ -122,7 +120,6 @@ function UF:Update_AssistFrames(frame, db)
 	UF:Configure_HealthBar(frame)
 	UF:Configure_Threat(frame)
 	UF:UpdateNameSettings(frame)
-	UF:Configure_HealComm(frame)
 	UF:Configure_Fader(frame)
 	UF:Configure_RaidIcon(frame)
 	UF:Configure_Cutaway(frame)
@@ -141,6 +138,7 @@ function UF:Update_AssistFrames(frame, db)
 		UF:Configure_RaidDebuffs(frame)
 		UF:Configure_AuraHighlight(frame)
 		UF:Configure_AuraWatch(frame)
+		UF:Configure_HealComm(frame)
 	end
 
 	frame:UpdateAllElements('ElvUI_UpdateAllElements')

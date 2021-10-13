@@ -47,7 +47,6 @@ A default texture will be applied to the Texture widgets if they don't have a te
 
 local _, ns = ...
 local oUF = ns.oUF
-local myGUID = UnitGUID('player')
 local HealComm = LibStub("LibHealComm-4.0")
 
 local function Update(self, event, unit)
@@ -97,9 +96,9 @@ local function Update(self, event, unit)
 			afterMyHeal = allDirectHeal;
 		end
 
-		-- Append over time heal if active and direct heal isn't already above the overflow limit.
-		if bit.band(element.healType, HealComm.HOT_HEALS) > 0 and allDirectHeal < maxHealShowm then
-			afterMyHeal = afterMyHeal + (HealComm:GetHealAmount(unitGUID, bit.bor(HealComm.HOT_HEALS, HealComm.CHANNEL_HEALS), predictionTime) or 0)
+		-- Append over time heal if direct heal isn't already above the overflow limit.
+		if allDirectHeal < maxHealShowm then
+			afterMyHeal = afterMyHeal + (HealComm:GetHealAmount(unitGUID, HealComm.OVERTIME_AND_BOMB_HEALS, predictionTime) or 0)
 		end
 	end
 
@@ -179,6 +178,7 @@ local function Enable(self)
 
 		self:RegisterEvent('UNIT_HEALTH_FREQUENT', Path)
 		self:RegisterEvent('UNIT_MAXHEALTH', Path)
+		self:RegisterEvent('UNIT_HEAL_PREDICTION', Path)
 
 		local function HealCommUpdate(...)
 			if self.HealthPrediction and self:IsVisible() then
@@ -255,6 +255,7 @@ local function Disable(self)
 
 		self:UnregisterEvent('UNIT_MAXHEALTH', Path)
 		self:UnregisterEvent('UNIT_HEALTH_FREQUENT', Path)
+		self:UnregisterEvent('UNIT_HEAL_PREDICTION', Path)
 	end
 end
 

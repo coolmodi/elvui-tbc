@@ -22,7 +22,6 @@ function UF:Construct_TankFrames()
 	self.MouseGlow = UF:Construct_MouseGlow(self)
 	self.TargetGlow = UF:Construct_TargetGlow(self)
 	self.FocusGlow = UF:Construct_FocusGlow(self)
-	self.HealthPrediction = UF:Construct_HealComm(self)
 	self.Fader = UF:Construct_Fader()
 	self.Cutaway = UF:Construct_Cutaway(self)
 
@@ -32,6 +31,7 @@ function UF:Construct_TankFrames()
 		self.AuraWatch = UF:Construct_AuraWatch(self)
 		self.RaidDebuffs = UF:Construct_RaidDebuffs(self)
 		self.AuraHighlight = UF:Construct_AuraHighlight(self)
+		self.HealthPrediction = UF:Construct_HealComm(self)
 
 		self.unitframeType = 'tank'
 	else
@@ -121,7 +121,6 @@ function UF:Update_TankFrames(frame, db)
 	UF:UpdateNameSettings(frame)
 	UF:Configure_Threat(frame)
 	UF:Configure_Fader(frame)
-	UF:Configure_HealComm(frame)
 	UF:Configure_Cutaway(frame)
 	UF:Configure_RaidIcon(frame)
 
@@ -139,6 +138,7 @@ function UF:Update_TankFrames(frame, db)
 		UF:Configure_RaidDebuffs(frame)
 		UF:Configure_AuraHighlight(frame)
 		UF:Configure_AuraWatch(frame)
+		UF:Configure_HealComm(frame)
 	end
 
 	frame:UpdateAllElements('ElvUI_UpdateAllElements')
