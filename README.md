@@ -1,5 +1,5 @@
 # Modified ElvUI TBC
-Original can be found here: https://git.tukui.org/elvui/elvui-tbc
+Original can be found here: https://github.com/tukui-org/ElvUI-TBC
 
 ## Changes
 * Heal prediction only shows heal happening in the next 3 seconds, which is usually direct heals and one tick from HoTs. Timeframe can be changed per unitframe in the respective Heal Prediction settings.
