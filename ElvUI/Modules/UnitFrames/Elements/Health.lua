@@ -227,9 +227,7 @@ function UF:PostUpdateHealthColor(unit, r, g, b)
 
 	local newr, newg, newb -- fallback for bg if custom settings arent used
 	if not b then r, g, b = colors.health.r, colors.health.g, colors.health.b end
-	if self.useCharmedColor and UnitIsCharmed(unit) then
-		self:SetStatusBarColor(colors.charmed.r, colors.charmed.g, colors.charmed.b)
-	elseif (((colors.healthclass and colors.colorhealthbyvalue) or (colors.colorhealthbyvalue and parent.isForced)) and not UnitIsTapDenied(unit)) then
+	if (((colors.healthclass and colors.colorhealthbyvalue) or (colors.colorhealthbyvalue and parent.isForced)) and not UnitIsTapDenied(unit)) then
 		newr, newg, newb = ElvUF:ColorGradient(self.cur, self.max, 1, 0, 0, 1, 1, 0, r, g, b)
 		self:SetStatusBarColor(newr, newg, newb)
 	end
@@ -237,8 +235,12 @@ function UF:PostUpdateHealthColor(unit, r, g, b)
 	-- Charmed player should have hostile color
 	if unit and (strmatch(unit, "raid%d+") or strmatch(unit, "party%d+")) then
 		if not UnitIsDeadOrGhost(unit) and UnitIsConnected(unit) and UnitIsCharmed(unit) and UnitIsEnemy("player", unit) then
-			local color = parent.colors.reaction[HOSTILE_REACTION]
-			if color then self:SetStatusBarColor(color[1], color[2], color[3]) end
+			if self.useCharmedColor then
+				self:SetStatusBarColor(colors.charmed.r, colors.charmed.g, colors.charmed.b)
+			else
+				local color = parent.colors.reaction[HOSTILE_REACTION]
+				if color then self:SetStatusBarColor(color[1], color[2], color[3]) end
+			end
 		end
 	end
 
